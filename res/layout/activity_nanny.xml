@@ -3,4 +3,32 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent" >
 
+    <Button
+        android:id="@+id/btnRefreshWiFi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:text="@string/refresh_button" />
+
+    <TextView
+        android:id="@+id/txtWifiStatusTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/btnRefreshWiFi"
+        android:text="@string/wifi_status"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/txtWifiStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/txtWifiStatusTitle"
+        android:layout_marginTop="20dp"
+        android:text="@string/empty"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
 </RelativeLayout>

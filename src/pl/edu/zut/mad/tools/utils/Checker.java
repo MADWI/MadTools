@@ -7,9 +7,6 @@ import android.content.pm.PackageManager;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.location.LocationManager;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
-
 /**
  * Class for checking sensors and other hardware devices.
  * 
@@ -100,22 +97,6 @@ public class Checker {
 	public static boolean haveFlashLight(Context ctx) {
 		return ctx.getPackageManager().hasSystemFeature(
 				PackageManager.FEATURE_CAMERA_FLASH);
-	}
-
-	/**
-	 * Checking if WiFi is on.
-	 * 
-	 * @param ctx
-	 *            Application context
-	 * @return true if WiFi is on otherwise false.
-	 */
-	public static boolean avaiableWiFi(Context ctx) {
-		ConnectivityManager connManager = (ConnectivityManager) ctx
-				.getSystemService(Context.CONNECTIVITY_SERVICE);
-		NetworkInfo mWifi = connManager
-				.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
-		return mWifi.isAvailable();
-
 	}
 
 	/**

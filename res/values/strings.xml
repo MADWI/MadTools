@@ -1,9 +1,17 @@
 <resources>
 
     <string name="app_name">Mad Tools</string>
-    <string name="hello_world">Hello world!</string>
     <string name="menu_settings">Settings</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="title_activity_nanny">Elektroniczna niania</string>
+    <string name="wifi_status">WiFi status</string>
+    <string name="cancel_button_title">Cancel</string>
+    <string name="yes_button_title">Yes</string>
+    <string name="no_enabled_wifi_title">WiFi disabled</string>
+    <string name="no_enabled_wifi_message">Your WiFi device is turn off.\nWould you like to enable it ?</string>
+    <string name="empty"></string>
+    <string name="test_title_nanny">Nanny</string>
+    <string name="refresh_button">Refresh</string>
+    <string name="wifi_title">WiFi</string>
 
 </resources>
