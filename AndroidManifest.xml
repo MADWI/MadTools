@@ -33,6 +33,10 @@
             android:name=".nanny.Nanny"
             android:label="@string/title_activity_nanny" >
         </activity>
+        <activity
+            android:name=".inclinometer.Inclinometer"
+            android:label="@string/title_activity_inclinometer" >
+        </activity>
     </application>
 
 </manifest>

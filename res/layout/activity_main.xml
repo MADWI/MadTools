@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent" >
-
+
     <Button
         android:id="@+id/btnNanny"
         android:layout_width="wrap_content"
@@ -12,5 +12,14 @@
         android:layout_marginLeft="28dp"
         android:layout_marginTop="41dp"
         android:text="@string/test_title_nanny" />
+
+    <Button
+        android:id="@+id/btnInclinometer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/btnNanny"
+        android:layout_alignBottom="@+id/btnNanny"
+        android:layout_centerHorizontal="true"
+        android:text="@string/test_title_inclinometer" />
 
 </RelativeLayout>

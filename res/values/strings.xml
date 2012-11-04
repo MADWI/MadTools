@@ -13,5 +13,7 @@
     <string name="test_title_nanny">Nanny</string>
     <string name="refresh_button">Refresh</string>
     <string name="wifi_title">WiFi</string>
+    <string name="test_title_inclinometer">Inclinometer</string>
+    <string name="title_activity_inclinometer">Kątomierz</string>
 
 </resources>

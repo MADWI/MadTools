@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/RelativeLayout1"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/tytul"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:gravity="center"
+        android:text="Inclinometer" />
+
+    <TextView
+        android:id="@+id/z_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/tytul"
+        android:layout_toRightOf="@+id/yPostv"
+        android:gravity="center"
+        android:text="Z:" />
+
+    <TextView
+        android:id="@+id/y_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tytul"
+        android:layout_centerHorizontal="true"
+        android:text="Y:" />
+
+    <TextView
+        android:id="@+id/x_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/tytul"
+        android:layout_toLeftOf="@+id/yPostv"
+        android:gravity="center"
+        android:text="X:" />
+
+    <TextView
+        android:id="@+id/yPostv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/y_text"
+        android:layout_centerHorizontal="true"
+        android:text="0.0" />
+
+    <TextView
+        android:id="@+id/xPostv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/yPostv"
+        android:layout_alignBottom="@+id/yPostv"
+        android:layout_alignRight="@+id/x_text"
+        android:layout_marginRight="64dp"
+        android:text="0.0" />
+
+    <TextView
+        android:id="@+id/zPostv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/z_text"
+        android:layout_below="@+id/z_text"
+        android:layout_marginLeft="60dp"
+        android:text="0.0" />
+
+</RelativeLayout>
