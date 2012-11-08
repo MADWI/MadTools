@@ -7,14 +7,12 @@
         android:minSdkVersion="7"
         android:targetSdkVersion="15" />
 
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" >
-    </uses-permission>
-    <uses-permission android:name="android.permission.UPDATE_DEVICE_STATS" >
-    </uses-permission>
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" >
-    </uses-permission>
-    <uses-permission android:name="android.permission.WAKE_LOCK" >
-    </uses-permission>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.UPDATE_DEVICE_STATS" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
     <application
         android:icon="@drawable/ic_launcher"
@@ -22,7 +20,8 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Black.NoTitleBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -31,11 +30,18 @@
         </activity>
         <activity
             android:name=".nanny.Nanny"
-            android:label="@string/title_activity_nanny" >
+            android:label="@string/title_activity_nanny"
+            android:theme="@android:style/Theme.Black.NoTitleBar" >
         </activity>
         <activity
             android:name=".inclinometer.Inclinometer"
-            android:label="@string/title_activity_inclinometer" >
+            android:label="@string/title_activity_inclinometer"
+            android:theme="@android:style/Theme.Black.NoTitleBar" >
+        </activity>
+        <activity
+            android:name=".noise.meter.NoiseMeterActivity"
+            android:label="@string/title_activity_noise_meter"
+            android:theme="@android:style/Theme.Black.NoTitleBar" >
         </activity>
     </application>
 

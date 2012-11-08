@@ -15,5 +15,9 @@
     <string name="wifi_title">WiFi</string>
     <string name="test_title_inclinometer">Inclinometer</string>
     <string name="title_activity_inclinometer">Kątomierz</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_noise_meter">NoiseMeterActivity</string>
+    <string name="zero_decibel">00 dB</string>
+    <string name="test_title_noise">Noise meter</string>
 
 </resources>
