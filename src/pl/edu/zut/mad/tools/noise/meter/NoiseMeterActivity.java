@@ -12,7 +12,6 @@ import android.app.Activity;
 import android.util.Log;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class NoiseMeterActivity extends Activity {
 
@@ -25,7 +24,6 @@ public class NoiseMeterActivity extends Activity {
 	double maxAmp = MediaRecorder.getAudioSourceMax();
 	private Handler handler = new Handler();
 	double noise = 0.00;
-	boolean no_sd_card = true;
 
 	int count = 0;
 	private static GraphicalView view;
@@ -54,19 +52,19 @@ public class NoiseMeterActivity extends Activity {
 		Log.d(TAG, "onResume");
 
 		handler.removeCallbacks(mUpdateTimeTask);
-		handler.postDelayed(mUpdateTimeTask, 1000);
+		handler.postDelayed(mUpdateTimeTask, 500);
 
 		try {
-			if (!RecordHandler.startRecording()) {
-				Toast.makeText(this, "No sd card !", Toast.LENGTH_SHORT).show();
-				no_sd_card = true;
-			} else
-				no_sd_card = false;
+
+			RecordHandler.startRecording();
 
 		} catch (IOException e) {
 			Log.d(TAG, "Record IO error");
 			e.printStackTrace();
 		}
+
+		maxAmp = MediaRecorder.getAudioSourceMax() / 2700.0;
+
 		super.onResume();
 	}
 
@@ -74,8 +72,8 @@ public class NoiseMeterActivity extends Activity {
 	protected void onPause() {
 		Log.d(TAG, "onPause");
 		handler.removeCallbacks(mUpdateTimeTask);
-		if (!no_sd_card)
-			RecordHandler.stopRecordingAndRemoveFile();
+
+		RecordHandler.stopRecording();
 
 		super.onPause();
 	}
@@ -83,7 +81,7 @@ public class NoiseMeterActivity extends Activity {
 	private Runnable mUpdateTimeTask = new Runnable() {
 		public void run() {
 			currentAmpRead();
-			handler.postDelayed(mUpdateTimeTask, 1000);
+			handler.postDelayed(mUpdateTimeTask, 500);
 		}
 	};
 
@@ -91,10 +89,11 @@ public class NoiseMeterActivity extends Activity {
 		Log.d(TAG, "currentAmpRead");
 		count++;
 
+		Log.d(TAG, Double.toString(maxAmp));
 		if (RecordHandler.getRecorder() != null)
-			currentAmp = RecordHandler.getRecorder().getMaxAmplitude();
+			currentAmp = RecordHandler.getRecorder().getMaxAmplitude() / 2700.0;
 
-		double tempNoise = 20 * Math.log10(currentAmp / maxAmp);
+		double tempNoise = 20.00 * Math.log10(currentAmp / maxAmp);
 		if (tempNoise > 0.0)
 			noise = tempNoise;
 

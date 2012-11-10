@@ -35,8 +35,8 @@ public class NoiseBarGraph {
 		mRenderer.setBarSpacing(0.5f);
 		mRenderer.setAxesColor(Color.WHITE);
 		mRenderer.setLabelsColor(Color.WHITE);
-		mRenderer.setYAxisMax(130.0f);
-		mRenderer.setYAxisMin(30.0f);
+		mRenderer.setYAxisMax(120.0f);
+		mRenderer.setYAxisMin(0.0f);
 
 		// Customize bar 1
 		XYSeriesRenderer renderer = new XYSeriesRenderer();
