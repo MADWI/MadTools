@@ -2,13 +2,17 @@ package pl.edu.zut.mad.tools.noise.meter;
 
 import java.io.IOException;
 
+import org.achartengine.GraphicalView;
+
 import pl.edu.zut.mad.tools.R;
 import android.media.MediaRecorder;
 import android.os.Bundle;
 import android.os.Handler;
 import android.app.Activity;
 import android.util.Log;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class NoiseMeterActivity extends Activity {
 
@@ -17,68 +21,87 @@ public class NoiseMeterActivity extends Activity {
 	TextView noiseLevel;
 	TextView test;
 
-	int count = 0;
-	boolean recordingNotOver = false;
+	double currentAmp = -1;
+	double maxAmp = MediaRecorder.getAudioSourceMax();
 	private Handler handler = new Handler();
+	double noise = 0.00;
+	boolean no_sd_card = true;
+
+	int count = 0;
+	private static GraphicalView view;
+	private NoiseBarGraph line = new NoiseBarGraph();
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_noise_meter);
-		Log.d(TAG, "OnCreate");
-		noiseLevel = (TextView) findViewById(R.id.noiseLevel);
 
-		handler.removeCallbacks(mUpdateTimeTask);
-		handler.postDelayed(mUpdateTimeTask, 500);
+		noiseLevel = (TextView) findViewById(R.id.noiseLevel);
 
 	}
 
 	@Override
-	protected void onPause() {
+	protected void onStart() {
+		super.onStart();
+		view = line.getView(this);
+		LinearLayout layout = (LinearLayout) findViewById(R.id.graphLayout);
+		layout.addView(view);
+	}
+
+	@Override
+	protected void onResume() {
+		Log.d(TAG, "onResume");
+
 		handler.removeCallbacks(mUpdateTimeTask);
+		handler.postDelayed(mUpdateTimeTask, 1000);
+
+		try {
+			if (!RecordHandler.startRecording()) {
+				Toast.makeText(this, "No sd card !", Toast.LENGTH_SHORT).show();
+				no_sd_card = true;
+			} else
+				no_sd_card = false;
+
+		} catch (IOException e) {
+			Log.d(TAG, "Record IO error");
+			e.printStackTrace();
+		}
+		super.onResume();
+	}
+
+	@Override
+	protected void onPause() {
+		Log.d(TAG, "onPause");
+		handler.removeCallbacks(mUpdateTimeTask);
+		if (!no_sd_card)
+			RecordHandler.stopRecordingAndRemoveFile();
+
 		super.onPause();
 	}
 
 	private Runnable mUpdateTimeTask = new Runnable() {
 		public void run() {
-			record100Miliseconds();
-			handler.postDelayed(mUpdateTimeTask, 500);
+			currentAmpRead();
+			handler.postDelayed(mUpdateTimeTask, 1000);
 		}
 	};
 
-	private void record100Miliseconds() {
+	private void currentAmpRead() {
+		Log.d(TAG, "currentAmpRead");
+		count++;
 
-		recordingNotOver = true;
-		double currentAmp = -1;
-		double maxAmp = MediaRecorder.getAudioSourceMax();
-		Handler mHandler = new Handler();
+		if (RecordHandler.getRecorder() != null)
+			currentAmp = RecordHandler.getRecorder().getMaxAmplitude();
 
-		try {
-			RecordHandler.startRecording();
-		} catch (IOException e) {
-			Log.d(TAG, "Record IO error");
-			e.printStackTrace();
-		}
+		double tempNoise = 20 * Math.log10(currentAmp / maxAmp);
+		if (tempNoise > 0.0)
+			noise = tempNoise;
 
-		mHandler.postDelayed(new Runnable() {
-			public void run() {
-				recordingNotOver = false;
-			}
-		}, 100);
+		noiseLevel.setText(String.format("%4.1f", noise) + " dB");
 
-		while (recordingNotOver) {
-			if (RecordHandler.getRecorder() != null)
-				currentAmp = RecordHandler.getRecorder().getMaxAmplitude();
-		}
-
-		RecordHandler.stopRecording();
-
-		Log.d(TAG,
-				"Max= " + Double.toString(maxAmp) + "   current = "
-						+ Double.toString(currentAmp));
-		double noise = 20 * Math.log10(currentAmp / maxAmp);
-		noiseLevel.setText(Double.toString(noise) + "db");
-
+		GraphPoint p = new GraphPoint(count, noise);
+		line.addNewPoints(p);
+		view.repaint();
 	}
 
 }

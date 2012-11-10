@@ -11,24 +11,37 @@
         android:layout_alignParentTop="true"
         android:layout_marginLeft="28dp"
         android:layout_marginTop="41dp"
-        android:text="@string/test_title_nanny" />
-
+        android:text="@string/test_title_nanny"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/imgLogo"
+        android:layout_width="fill_parent"
+        android:layout_height="180dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_margin="10dp"
+        android:src="@drawable/logo" />
+
     <Button
         android:id="@+id/btnInclinometer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/btnNanny"
-        android:layout_alignBottom="@+id/btnNanny"
-        android:layout_centerHorizontal="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/imgLogo"
+        android:layout_margin="5dp"
         android:text="@string/test_title_inclinometer" />
-
+
     <Button
         android:id="@+id/btnNoiseMeter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/btnNanny"
-        android:layout_below="@+id/btnNanny"
-        android:layout_marginTop="63dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/btnInclinometer"
+        android:layout_margin="5dp"
         android:text="@string/test_title_noise" />
 
 </RelativeLayout>
