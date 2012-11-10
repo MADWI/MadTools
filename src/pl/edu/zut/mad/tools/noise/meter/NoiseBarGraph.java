@@ -10,6 +10,8 @@ import org.achartengine.model.XYMultipleSeriesDataset;
 import org.achartengine.renderer.XYMultipleSeriesRenderer;
 import org.achartengine.renderer.XYSeriesRenderer;
 
+import pl.edu.zut.mad.tools.R;
+
 import android.content.Context;
 import android.graphics.Color;
 
@@ -17,22 +19,23 @@ public class NoiseBarGraph {
 
 	private GraphicalView view;
 
-	private TimeSeries dataset = new TimeSeries("Poziomy ha³asu");
+	private TimeSeries dataset = new TimeSeries("");
 	private XYMultipleSeriesDataset mDataset = new XYMultipleSeriesDataset();
 	private XYMultipleSeriesRenderer mRenderer = new XYMultipleSeriesRenderer();
 
 	// This will be used to customize line 1
 
-	public NoiseBarGraph() {
+	public NoiseBarGraph(Context ctx) {
 		// Add single dataset to multiple dataset
+		dataset.setTitle(ctx.getString(R.string.noise_bar_title));
 		mDataset.addSeries(dataset);
 
 		mRenderer.setXTitle("t,s");
 		mRenderer.setYTitle("dB");
-		mRenderer.setBarSpacing(1.0f);
+		mRenderer.setBarSpacing(0.5f);
 		mRenderer.setAxesColor(Color.WHITE);
 		mRenderer.setLabelsColor(Color.WHITE);
-		mRenderer.setYAxisMax(100.0f);
+		mRenderer.setYAxisMax(130.0f);
 		mRenderer.setYAxisMin(30.0f);
 
 		// Customize bar 1

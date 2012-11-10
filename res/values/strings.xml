@@ -2,7 +2,6 @@
 
     <string name="app_name">Mad Tools</string>
     <string name="menu_settings">Settings</string>
-    <string name="title_activity_main">MainActivity</string>
     <string name="title_activity_nanny">Elektroniczna niania</string>
     <string name="wifi_status">WiFi status</string>
     <string name="cancel_button_title">Cancel</string>
@@ -13,11 +12,11 @@
     <string name="test_title_nanny">Nanny</string>
     <string name="refresh_button">Refresh</string>
     <string name="wifi_title">WiFi</string>
-    <string name="test_title_inclinometer">Inclinometer</string>
+    <string name="test_title_inclinometer">Kątomierz</string>
     <string name="title_activity_inclinometer">Kątomierz</string>
-    <string name="hello_world">Hello world!</string>
     <string name="title_activity_noise_meter">NoiseMeterActivity</string>
     <string name="zero_decibel">00 dB</string>
-    <string name="test_title_noise">Noise meter</string>
+    <string name="test_title_noise">Pomiar hałasu</string>
+    <string name="noise_bar_title">Poziomy hałasu</string>
 
 </resources>

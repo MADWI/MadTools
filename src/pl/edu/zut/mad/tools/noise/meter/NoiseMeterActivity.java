@@ -29,13 +29,14 @@ public class NoiseMeterActivity extends Activity {
 
 	int count = 0;
 	private static GraphicalView view;
-	private NoiseBarGraph line = new NoiseBarGraph();
+	private NoiseBarGraph bar;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_noise_meter);
 
+		bar = new NoiseBarGraph(this);
 		noiseLevel = (TextView) findViewById(R.id.noiseLevel);
 
 	}
@@ -43,7 +44,7 @@ public class NoiseMeterActivity extends Activity {
 	@Override
 	protected void onStart() {
 		super.onStart();
-		view = line.getView(this);
+		view = bar.getView(this);
 		LinearLayout layout = (LinearLayout) findViewById(R.id.graphLayout);
 		layout.addView(view);
 	}
@@ -100,7 +101,7 @@ public class NoiseMeterActivity extends Activity {
 		noiseLevel.setText(String.format("%4.1f", noise) + " dB");
 
 		GraphPoint p = new GraphPoint(count, noise);
-		line.addNewPoints(p);
+		bar.addNewPoints(p);
 		view.repaint();
 	}
 
