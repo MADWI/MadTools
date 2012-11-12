@@ -11,6 +11,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginLeft="28dp"
         android:layout_marginTop="41dp"
+<<<<<<< HEAD
         android:text="@string/test_title_nanny"
         android:visibility="gone" />
 
@@ -24,11 +25,15 @@
         android:layout_margin="10dp"
         android:contentDescription="@string/empty"
         android:src="@drawable/logo" />
+=======
+        android:text="@string/test_title_nanny" />
+>>>>>>> Dodanie klasy whereIsCar
 
     <Button
         android:id="@+id/btnInclinometer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+<<<<<<< HEAD
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/imgLogo"
@@ -44,5 +49,18 @@
         android:layout_below="@+id/btnInclinometer"
         android:layout_margin="5dp"
         android:text="@string/test_title_noise" />
+=======
+        android:layout_marginLeft="128dp"
+        android:layout_marginTop="41dp"
+        android:text="@string/test_title_inclinometer" />
+
+    <Button
+        android:id="@+id/btnWhereIsCar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="28dp"
+        android:layout_marginTop="120dp"
+        android:text="@string/title_activity_whereiscar" />
+>>>>>>> Dodanie klasy whereIsCar
 
 </RelativeLayout>

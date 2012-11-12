@@ -60,7 +60,6 @@ public class Nanny extends Activity implements OnClickListener {
 		return true;
 	}
 
-	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.btnRefreshWiFi:
@@ -80,7 +79,6 @@ public class Nanny extends Activity implements OnClickListener {
 		dialogBuilder.setCancelable(false);
 		dialogBuilder.setPositiveButton(buttonPositive,
 				new Dialog.OnClickListener() {
-					@Override
 					public void onClick(DialogInterface dialog, int whichButton) {
 						wifiManager.setWifiEnabled(true);
 						refreshWifiStatus();
@@ -88,7 +86,6 @@ public class Nanny extends Activity implements OnClickListener {
 				});
 		dialogBuilder.setNegativeButton(buttonNegative,
 				new Dialog.OnClickListener() {
-					@Override
 					public void onClick(DialogInterface dialog, int whichButton) {
 						finish();
 					}
