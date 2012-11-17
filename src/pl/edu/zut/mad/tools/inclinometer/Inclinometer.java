@@ -7,22 +7,18 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.app.Activity;
-import android.util.FloatMath;
-import android.util.Log;
 import android.view.Menu;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
 
 /**
- * Simple class for accelerometer
+ * Simple class for inclinometer
  * 
  * @author Dawid Glinski
  * @version 1.1.0
  * */
 public class Inclinometer extends Activity implements SensorEventListener {
-
-    private static final String TAG = "Inclinometer";
 
     /** Variable which contain phone x position */
     private TextView xPostv;
@@ -31,11 +27,18 @@ public class Inclinometer extends Activity implements SensorEventListener {
     /** Variables which contain phone z position */
     private TextView zPostv;
 
-    /** Variable which contain angle value */
-    private TextView angle;
-
     /** Object responsible for access to accelerometer */
     private SensorManager sensor_manager;
+
+    private float[] inR = new float[16];
+    private float[] I = new float[16];
+    private float[] gravity = new float[3];
+    private float[] geomag = new float[3];
+    private float[] orientVals = new float[3];
+
+    private double azimuth = 0.0; //angle around the z-axis
+    private double pitch = 0.0;  //angle around the x-axis
+    private double roll = 0.0;  //angle around the y-axis
 
     /** Variable which contain updating time in miliseconds */
     private long lastUpdate;
@@ -52,8 +55,6 @@ public class Inclinometer extends Activity implements SensorEventListener {
 	xPostv = (TextView) findViewById(R.id.xPostv);
 	yPostv = (TextView) findViewById(R.id.yPostv);
 	zPostv = (TextView) findViewById(R.id.zPostv);
-
-	angle = (TextView) findViewById(R.id.angle_value);
 
 	sensor_manager = (SensorManager) getSystemService(SENSOR_SERVICE);
 	lastUpdate = System.currentTimeMillis();
@@ -73,6 +74,10 @@ public class Inclinometer extends Activity implements SensorEventListener {
 	sensor_manager.registerListener(this,
 		sensor_manager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
 		SensorManager.SENSOR_DELAY_NORMAL);
+
+	sensor_manager.registerListener(this,
+		sensor_manager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD),
+		SensorManager.SENSOR_DELAY_NORMAL);
     }
 
     @Override
@@ -85,55 +90,47 @@ public class Inclinometer extends Activity implements SensorEventListener {
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
     }
 
+    /** Called when phone moves */
     @Override
     public void onSensorChanged(SensorEvent event) {
-	if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
-	    computeAngle(event);
-	}
-    }
 
-    /**
-     * Computing angle from phone movement
-     * 
-     * @param event
-     *            phone movement
-     */
-    private void computeAngle(SensorEvent event) {
-	float[] values = event.values;
-
-	float x = values[0];
-	float y = values[1];
-	float z = values[2];
-
-	float accelationSquareRoot = (x * x + y * y + z * z)
-		/ (SensorManager.GRAVITY_EARTH * SensorManager.GRAVITY_EARTH);
-
-	// ----------computing angle (need to fix)-------------------
-	// [10 0 0] - vector of phone coordinates (orientation: horizontal)
-
-	// computing angle cosinus between two vectors
-	float angle1 = (x * 10 + y * 0 + z * 0)
-		/ ((FloatMath.sqrt((x * x) + (y * y) + (z * z))) * (FloatMath
-			.sqrt(10 * 10)));
-	float kat = 1 / angle1;
-	Log.e(TAG, "kat: " + kat);
-	// ----------------------------------------------------------
+	// If the sensor data is unreliable return
 
 	long actualTime = System.currentTimeMillis();
 
-	if (accelationSquareRoot > 0.5) //
-	{
-	    xPostv.setText(String.format("%.1f", x));
-	    yPostv.setText(String.format("%.1f", y));
-	    zPostv.setText(String.format("%.1f", z));
+	if (event.accuracy == SensorManager.SENSOR_STATUS_UNRELIABLE)
+	    return;
 
-	    angle.setText(String.format("%.2f", kat));
-	    Log.d(TAG, "cos: " + angle1);
-
-	    if (actualTime - lastUpdate < 500) {
-		return;
-	    }
-	    lastUpdate = actualTime;
+	switch (event.sensor.getType()) {
+	case Sensor.TYPE_ACCELEROMETER:
+	    gravity = event.values.clone();
+	    break;
+	case Sensor.TYPE_MAGNETIC_FIELD:
+	    geomag = event.values.clone();
+	    break;
 	}
+	// If gravity and geomag have values then find rotation matrix
+	if (gravity != null && geomag != null) {
+
+	    // checks that the rotation matrix is found
+	    boolean success = SensorManager.getRotationMatrix(inR, I, gravity,
+		    geomag);
+	    if (success) {
+		SensorManager.getOrientation(inR, orientVals);
+
+		azimuth = Math.toDegrees(orientVals[0]);
+		pitch = Math.toDegrees(orientVals[1]);
+		roll = Math.toDegrees(orientVals[2]);
+
+	    }
+	}
+	xPostv.setText(String.format("%.0f", azimuth));
+	yPostv.setText(String.format("%.0f", roll));
+	zPostv.setText(String.format("%.0f", pitch));
+
+	if (actualTime - lastUpdate < 500) {
+	    return;
+	}
+	lastUpdate = actualTime;
     }
 }

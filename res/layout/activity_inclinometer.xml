@@ -6,74 +6,74 @@
     android:orientation="vertical" >
 
     <TextView
-        android:id="@+id/z_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/tytul"
-        android:layout_toRightOf="@+id/yPostv"
-        android:gravity="center"
-        android:text="Z:" />
-
-    <TextView
-        android:id="@+id/y_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tytul"
-        android:layout_centerHorizontal="true"
-        android:text="Y:" />
-
-    <TextView
         android:id="@+id/x_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/tytul"
-        android:layout_toLeftOf="@+id/yPostv"
+        android:layout_alignParentTop="true"
+        android:layout_alignRight="@+id/xPostv"
+        android:layout_marginTop="49dp"
         android:gravity="center"
-        android:text="X:" />
-
-    <TextView
-        android:id="@+id/yPostv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/y_text"
-        android:layout_centerHorizontal="true"
-        android:text="0.0" />
+        android:text="X:"
+        android:textColor="#FFFFFF"
+        android:textSize="40dip" />
 
     <TextView
         android:id="@+id/xPostv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/yPostv"
-        android:layout_alignBottom="@+id/yPostv"
-        android:layout_alignRight="@+id/x_text"
-        android:layout_marginRight="64dp"
-        android:text="0.0" />
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/x_text"
+        android:gravity="center"
+        android:text="0.0"
+        android:textColor="#FFFFFF"
+        android:textSize="40dip" />
+
+    <TextView
+        android:id="@+id/z_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/xPostv"
+        android:layout_alignLeft="@+id/zPostv"
+        android:layout_alignParentRight="true"
+        android:gravity="center"
+        android:text="Z:"
+        android:textColor="#FFFFFF"
+        android:textSize="40dip" />
 
     <TextView
         android:id="@+id/zPostv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/z_text"
+        android:layout_alignParentRight="true"
         android:layout_below="@+id/z_text"
-        android:layout_marginLeft="60dp"
-        android:text="0.0" />
-
+        android:gravity="center"
+        android:text="0.0"
+        android:textColor="#FFFFFF"
+        android:textSize="40dip" />
+
     <TextView
-        android:id="@+id/angle_value"
+        android:id="@+id/y_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:text="0" />
-
+        android:layout_alignBottom="@+id/x_text"
+        android:layout_alignLeft="@+id/yPostv"
+        android:layout_alignRight="@+id/yPostv"
+        android:layout_alignTop="@+id/z_text"
+        android:gravity="center"
+        android:text="Y:"
+        android:textColorLink="#FFFFFF"
+        android:textSize="40dip" />
+
     <TextView
-        android:id="@+id/kat_tv"
+        android:id="@+id/yPostv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/angle_value"
+        android:layout_alignBottom="@+id/xPostv"
+        android:layout_alignTop="@+id/xPostv"
         android:layout_centerHorizontal="true"
-        android:text="Kąt" />
+        android:text="0.0"
+        android:textColor="#FFFFFF"
+        android:textSize="40dip" />
 
 </RelativeLayout>
