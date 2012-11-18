@@ -2,8 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="top"
-    android:background="@android:color/black" >
+    android:gravity="top" >
 
     <Button
         android:id="@+id/btnSaveLocation"
@@ -23,47 +22,30 @@
         android:layout_alignParentTop="true"
         android:layout_marginLeft="30dp"
         android:layout_marginTop="30dp"
-        android:text="@string/textView_Longitude"
-        android:textColor="@android:color/white"
-        android:textSize="20dp" />
+        android:text="@string/textView_Longitude" />
 
     <TextView
         android:id="@+id/textLattitude"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="30dp"
-        android:layout_marginTop="80dp"
-        android:text="@string/textView_lattitude"
-        android:textColor="@android:color/white"
-        android:textSize="20dp" />
+        android:layout_marginTop="60dp"
+        android:text="@string/textView_lattitude" />
 
     <TextView
         android:id="@+id/textTakeLongitude"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="155dp"
+        android:layout_marginLeft="105dp"
         android:layout_marginTop="30dp"
-        android:text=""
-        android:textColor="@android:color/white"
-        android:textSize="20dp" />
+        android:text="" />
 
     <TextView
         android:id="@+id/textTakeLattitude"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="155dp"
-        android:layout_marginTop="80dp"
-        android:text=""
-        android:textColor="@android:color/white"
-        android:textSize="20dp" />
-
-    <Button
-        android:id="@+id/takeMeToMyCar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/btnSaveLocation"
-        android:layout_alignBottom="@+id/btnSaveLocation"
-        android:layout_alignLeft="@+id/textLattitude"
-        android:text="Button" />
+        android:layout_marginLeft="105dp"
+        android:layout_marginTop="60dp"
+        android:text="" />
 
 </RelativeLayout>

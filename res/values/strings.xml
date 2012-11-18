@@ -20,11 +20,10 @@
     <string name="test_title_noise">Pomiar hałasu</string>
     <string name="noise_bar_title">Poziomy hałasu</string>
 
-    <string name="title_activity_whereiscar">Where Is Car ?</string>
+    <string name="title_activity_whereiscar">Gdzie jest samochód?</string>
     <string name="btnSaveLocation">Zapisz pozycję</string>
     <string name="textView_lattitude">Szerokość:</string>
     <string name="textView_Longitude">Długość:</string>
-    <string name="title_activity_locationmapdrawable">Prowadź!</string>
     <string name="title_activity_compass">Kompas</string>
 
 
