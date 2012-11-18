@@ -1,0 +1,7 @@
+Do testów nale¿y u¿ywaæ GoogleApi. Musicie poprawiæ swoje emulatory i wybraæ model googleApi, inaczej nie ruszy
+Wam do testów apka. 
+
+Jeœli mimo to nie bêdzie chcia³a ruszyæ klikacie prawym na nasz projekt ---> Build Path ---->  Add external Archives
+Ze œcie¿ki:  \\ Domyslnie C:\Users\Uzytkownik\android-sdks\add-ons\addon-google_apis-google-8\libs
+wybieracie plik maps.jar
+
