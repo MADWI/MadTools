@@ -26,6 +26,7 @@
     <string name="textView_Longitude">Długość:</string>
     <string name="title_activity_locationmapdrawable">Prowadź!</string>
     <string name="title_activity_compass">Kompas</string>
+    <string name="title_activity_chat_client">Klient czatu tekstowego</string>
 
 
 </resources>
