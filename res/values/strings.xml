@@ -24,6 +24,7 @@
     <string name="btnSaveLocation">Zapisz pozycję</string>
     <string name="textView_lattitude">Szerokość:</string>
     <string name="textView_Longitude">Długość:</string>
+    <string name="title_activity_compass">Kompas</string>
 
 
 </resources>

@@ -62,7 +62,7 @@
         android:layout_alignTop="@+id/z_text"
         android:gravity="center"
         android:text="Y:"
-        android:textColorLink="#FFFFFF"
+        android:textColor="#FFFFFF"
         android:textSize="40dip" />
 
     <TextView

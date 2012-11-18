@@ -54,5 +54,14 @@
         android:layout_below="@+id/btnNoiseMeter"
         android:layout_margin="5dp"
         android:text="@string/title_activity_whereiscar" />
+
+    <Button
+        android:id="@+id/btnCompass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/btnWhereIsCar"
+        android:layout_alignRight="@+id/btnWhereIsCar"
+        android:layout_below="@+id/btnWhereIsCar"
+        android:text="@string/title_activity_compass" />
 
 </RelativeLayout>
