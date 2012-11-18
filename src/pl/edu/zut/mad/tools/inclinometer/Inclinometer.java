@@ -40,9 +40,6 @@ public class Inclinometer extends Activity implements SensorEventListener {
     private double pitch = 0.0;  //angle around the x-axis
     private double roll = 0.0;  //angle around the y-axis
 
-    /** Variable which contain updating time in miliseconds */
-    private long lastUpdate;
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
 
@@ -57,7 +54,6 @@ public class Inclinometer extends Activity implements SensorEventListener {
 	zPostv = (TextView) findViewById(R.id.zPostv);
 
 	sensor_manager = (SensorManager) getSystemService(SENSOR_SERVICE);
-	lastUpdate = System.currentTimeMillis();
     }
 
     @Override
@@ -95,9 +91,6 @@ public class Inclinometer extends Activity implements SensorEventListener {
     public void onSensorChanged(SensorEvent event) {
 
 	// If the sensor data is unreliable return
-
-	long actualTime = System.currentTimeMillis();
-
 	if (event.accuracy == SensorManager.SENSOR_STATUS_UNRELIABLE)
 	    return;
 
@@ -124,13 +117,14 @@ public class Inclinometer extends Activity implements SensorEventListener {
 
 	    }
 	}
-	xPostv.setText(String.format("%.0f", azimuth));
-	yPostv.setText(String.format("%.0f", roll));
-	zPostv.setText(String.format("%.0f", pitch));
+	
+	azimuth = (azimuth + 360.0) % 360.0;
+	pitch = (pitch + 360.0) % 360.0;
+	roll = (roll + 360.0) % 360.0;
+	
+	xPostv.setText(String.format("%.0f", 360 - azimuth));
+	yPostv.setText(String.format("%.0f", 360 - pitch));
+	zPostv.setText(String.format("%.0f", 360 - roll));
 
-	if (actualTime - lastUpdate < 500) {
-	    return;
-	}
-	lastUpdate = actualTime;
     }
 }
