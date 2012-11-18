@@ -82,6 +82,11 @@
             android:label="@string/title_activity_chat_client"
             android:theme="@android:style/Theme.Black.NoTitleBar" >
         </activity>
+        <activity
+            android:name=".chatServer.ChatServer"
+            android:label="@string/title_activity_chat_server"
+            android:theme="@android:style/Theme.Black.NoTitleBar" >
+        </activity>
     </application>
 
 </manifest>
