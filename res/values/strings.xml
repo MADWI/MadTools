@@ -1,4 +1,4 @@
-title_activity_chat_server<resources>
+<resources>
 
     <string name="app_name">Mad Tools</string>
     <string name="menu_settings">Settings</string>
@@ -26,8 +26,6 @@ title_activity_chat_server<resources>
     <string name="textView_Longitude">Długość:</string>
     <string name="title_activity_locationmapdrawable">Prowadź!</string>
     <string name="title_activity_compass">Kompas</string>
-    <string name="title_activity_chat_client">Klient czatu tekstowego</string>
-    <string name="title_activity_chat_server">Serwer klienta czatu tekstowego</string>
 
 
 </resources>
