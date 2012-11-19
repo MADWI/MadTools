@@ -1,30 +1,27 @@
 package pl.edu.zut.mad.tools.whereIsCar;
 
-import java.util.Map;
-
 import pl.edu.zut.mad.tools.R;
+import pl.edu.zut.mad.tools.compass.Compass;
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.util.Log;
-import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
 
-
-public class whereIsCar extends Activity implements OnClickListener {
+public class WhereIsCar extends Activity implements OnClickListener {
 	
 	private Button btnSaveLocation;
-	private Button takeMetoMyCar;
+	private Button button1;
+	
 	double lattitude;
 	double longitude;
 	
@@ -50,9 +47,9 @@ public class whereIsCar extends Activity implements OnClickListener {
 		btnSaveLocation = (Button) findViewById(R.id.btnSaveLocation);
 		btnSaveLocation.setOnClickListener(this);
 		
-		takeMetoMyCar = (Button) findViewById(R.id.takeMeToMyCar);
-		takeMetoMyCar.setOnClickListener(this);
-		
+		button1 = (Button) findViewById(R.id.btnTakeMe);
+		button1.setOnClickListener(this);
+	
 		
 		
 	    settings = PreferenceManager.getDefaultSharedPreferences(this);
@@ -80,11 +77,10 @@ public class whereIsCar extends Activity implements OnClickListener {
 			Toast.makeText( getApplicationContext(), settings.getString("STOREDVALUE", ""),	Toast.LENGTH_SHORT ).show();
 			break;
 			
-		case R.id.takeMeToMyCar:
-			Intent locationMapDrawerIntent = new Intent(this, locationMapDrawer.class);
-			startActivity(locationMapDrawerIntent);
-			break;
-
+		case R.id.btnTakeMe:
+		    Intent locationMapIntent = new Intent(this, LocationMap.class);
+		    startActivity(locationMapIntent);
+		    break;
 		}
 	}
 	
@@ -130,4 +126,5 @@ public class whereIsCar extends Activity implements OnClickListener {
 		}
 		
 	}
+
 }

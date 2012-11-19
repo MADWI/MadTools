@@ -4,7 +4,7 @@ import pl.edu.zut.mad.tools.compass.Compass;
 import pl.edu.zut.mad.tools.inclinometer.Inclinometer;
 import pl.edu.zut.mad.tools.nanny.Nanny;
 import pl.edu.zut.mad.tools.noise.meter.NoiseMeterActivity;
-import pl.edu.zut.mad.tools.whereIsCar.whereIsCar;
+import pl.edu.zut.mad.tools.whereIsCar.WhereIsCar;
 
 import android.os.Bundle;
 import android.app.Activity;
@@ -66,7 +66,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	    break;
 
 	case R.id.btnWhereIsCar:
-	    Intent whereIsCarIntent = new Intent(this, whereIsCar.class);
+	    Intent whereIsCarIntent = new Intent(this, WhereIsCar.class);
 	    startActivity(whereIsCarIntent);
 	    break;
 
