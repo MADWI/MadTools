@@ -122,7 +122,7 @@ public class Inclinometer extends Activity implements SensorEventListener {
 	pitch = (pitch + 360.0) % 360.0;
 	roll = (roll + 360.0) % 360.0;
 	
-	xPostv.setText(String.format("%.0f", 360 - azimuth));
+	xPostv.setText(String.format("%.0f", azimuth));
 	yPostv.setText(String.format("%.0f", 360 - pitch));
 	zPostv.setText(String.format("%.0f", 360 - roll));
 
