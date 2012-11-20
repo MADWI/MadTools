@@ -2,6 +2,7 @@ package pl.edu.zut.mad.tools.whereIsCar;
 
 import pl.edu.zut.mad.tools.R;
 import pl.edu.zut.mad.tools.compass.Compass;
+import pl.edu.zut.mad.tools.utils.Constans;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -11,13 +12,14 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class WhereIsCar extends Activity implements OnClickListener {
+public class WhereIsCar extends Activity implements OnClickListener, LocationListener {
 	
 	private Button btnSaveLocation;
 	private Button button1;
@@ -33,12 +35,15 @@ public class WhereIsCar extends Activity implements OnClickListener {
 	
 	private LocationManager locationManager;
 	private LocationListener locationListener;
+	private Location location;
 	
 	private TextView TextLongi;
 	private TextView TextLatti;
-	public SharedPreferences settings;
 	
-	myLocationListener obj = new myLocationListener();
+	public SharedPreferences settings;
+	SharedPreferences.Editor preferencesEditor;
+	
+	public static String TAG = "Michazzz";
 	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -50,31 +55,50 @@ public class WhereIsCar extends Activity implements OnClickListener {
 		button1 = (Button) findViewById(R.id.btnTakeMe);
 		button1.setOnClickListener(this);
 	
-		
-		
-	    settings = PreferenceManager.getDefaultSharedPreferences(this);
-	    settings.getBoolean("keystring", true);
-		
-		locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
-		locationListener = new myLocationListener();
-		
 		TextLongi = (TextView) findViewById(R.id.textTakeLongitude);
 		TextLatti = (TextView) findViewById(R.id.textTakeLattitude);
 		
-		locationManager.requestLocationUpdates( LocationManager.GPS_PROVIDER, 0, 0, locationListener);
+		settings = getSharedPreferences(Constans.GPS_LOCATION_PREFERENCES, Activity.MODE_PRIVATE);
 		
-
+		locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
+		locationManager.requestLocationUpdates( LocationManager.GPS_PROVIDER, 10, 10, this);
+	    location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+	    	if (location != null) {
+			      Log.d(TAG, location.toString());
+				  Longitude = String.valueOf(longitude);
+				  Lattitude = String.valueOf(lattitude);
+				  TextLatti.setText(Lattitude);
+				  TextLongi.setText(Longitude);
+		
+			      this.onLocationChanged(location);
+			    }
+		}
+	
+	@Override
+	protected void onPause() {
+		locationManager.removeUpdates(this);
+		super.onPause();
 	}
+	
+	@Override
+	protected void onResume() {
+		restoreData(settings);
+		locationManager.requestLocationUpdates( LocationManager.GPS_PROVIDER, 10, 10, this);
+		//TextLatti.setText(String.valueOf(lattitude));
+		//TextLongi.setText(String.valueOf(longitude));
+		super.onResume();
+	}
+
 	
 	public void onClick(View v){
 		switch (v.getId()) {
-		case R.id.btnSaveLocation:
-			//SharedPreferences settings = getSharedPreferences(localizationSettings, Activity.MODE_PRIVATE);
-			settings = saveData(settings);
-			test1 = settings.getString("myPrefs", "");
-			TextLatti.setText(String.valueOf(longitude));
-			TextLongi.setText(String.valueOf(lattitude));
-			Toast.makeText( getApplicationContext(), settings.getString("STOREDVALUE", ""),	Toast.LENGTH_SHORT ).show();
+		case R.id.btnSaveLocation:		
+			restoreData(settings);
+			Longitude = String.valueOf(longitude);
+			Lattitude = String.valueOf(lattitude);
+			saveData(settings, "Dlugosc", Longitude);
+			saveData(settings, "Szerokosc", Lattitude);
+			Toast.makeText( getApplicationContext(),"Zapisano! \n" + "Dlugosc: "+Longitude + "\n" + "Szerokosc" + Lattitude ,	Toast.LENGTH_SHORT ).show();
 			break;
 			
 		case R.id.btnTakeMe:
@@ -92,15 +116,19 @@ public class WhereIsCar extends Activity implements OnClickListener {
         return settings;
     }
     
-    private SharedPreferences restoreData(SharedPreferences settings) {
-        String textFromPreferences = settings.getString("myPrefs", "");
-		TextLatti.setText(" ");
-		TextLongi.setText(" ");
-        return settings;
+    private void saveData(SharedPreferences settings,String key, String value) {
+    	preferencesEditor = settings.edit();
+    	preferencesEditor.putString(key, value);
+    	preferencesEditor.commit();
     }
-	
-	public class myLocationListener implements LocationListener
-	{	
+    
+    
+    private void restoreData(SharedPreferences settings) {
+    	preferencesEditor = settings.edit();
+    	preferencesEditor.clear();
+    	preferencesEditor.commit();
+    }
+
 
 		public void onProviderDisabled(String provider) {
 			// TODO Auto-generated method stub
@@ -121,10 +149,15 @@ public class WhereIsCar extends Activity implements OnClickListener {
 
 		@Override
 		public void onLocationChanged(Location location) {
-			longitude = location.getLongitude();
-			lattitude = location.getLatitude();
+			if(location != null)				{
+				longitude = location.getLongitude();
+				lattitude = location.getLatitude();
+				
+				Longitude = String.valueOf(longitude);
+				Lattitude = String.valueOf(lattitude);
+				TextLatti.setText(Lattitude);
+				TextLongi.setText(Longitude);
+				}
 		}
 		
 	}
-
-}
