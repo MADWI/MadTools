@@ -1,7 +1,6 @@
 package pl.edu.zut.mad.tools.whereIsCar;
 
 import pl.edu.zut.mad.tools.R;
-import pl.edu.zut.mad.tools.compass.Compass;
 import pl.edu.zut.mad.tools.utils.Constans;
 import android.app.Activity;
 import android.content.Context;
@@ -11,7 +10,6 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -34,7 +32,6 @@ public class WhereIsCar extends Activity implements OnClickListener, LocationLis
 	public String test2 = "";
 	
 	private LocationManager locationManager;
-	private LocationListener locationListener;
 	private Location location;
 	
 	private TextView TextLongi;
@@ -84,8 +81,6 @@ public class WhereIsCar extends Activity implements OnClickListener, LocationLis
 	protected void onResume() {
 		restoreData(settings);
 		locationManager.requestLocationUpdates( LocationManager.GPS_PROVIDER, 10, 10, this);
-		//TextLatti.setText(String.valueOf(lattitude));
-		//TextLongi.setText(String.valueOf(longitude));
 		super.onResume();
 	}
 
@@ -96,9 +91,9 @@ public class WhereIsCar extends Activity implements OnClickListener, LocationLis
 			restoreData(settings);
 			Longitude = String.valueOf(longitude);
 			Lattitude = String.valueOf(lattitude);
-			saveData(settings, "Dlugosc", Longitude);
-			saveData(settings, "Szerokosc", Lattitude);
-			Toast.makeText( getApplicationContext(),"Zapisano! \n" + "Dlugosc: "+Longitude + "\n" + "Szerokosc" + Lattitude ,	Toast.LENGTH_SHORT ).show();
+			saveData(settings, "Dlugosc", (float)longitude);
+			saveData(settings, "Szerokosc", (float)lattitude);
+			Toast.makeText( getApplicationContext(),"Zapisano!  \n" + "Dlugoœæ: "+Longitude + "\n" + "Szerokoœæ: " + Lattitude ,	Toast.LENGTH_SHORT ).show();
 			break;
 			
 		case R.id.btnTakeMe:
@@ -107,18 +102,10 @@ public class WhereIsCar extends Activity implements OnClickListener, LocationLis
 		    break;
 		}
 	}
-	
-    private SharedPreferences saveData(SharedPreferences settings) {
-        SharedPreferences.Editor preferencesEditor = settings.edit();
-        preferencesEditor.putString("STOREDVALUE", Longitude);
-        preferencesEditor.putString("STOREDVALUE", Lattitude);
-        preferencesEditor.commit();
-        return settings;
-    }
     
-    private void saveData(SharedPreferences settings,String key, String value) {
+    private void saveData(SharedPreferences settings,String key, float value) {
     	preferencesEditor = settings.edit();
-    	preferencesEditor.putString(key, value);
+    	preferencesEditor.putFloat(key, value);
     	preferencesEditor.commit();
     }
     
