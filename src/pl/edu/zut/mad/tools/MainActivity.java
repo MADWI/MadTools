@@ -2,6 +2,7 @@ package pl.edu.zut.mad.tools;
 
 import pl.edu.zut.mad.tools.compass.Compass;
 import pl.edu.zut.mad.tools.inclinometer.Inclinometer;
+import pl.edu.zut.mad.tools.lightmeter.LightMeter;
 import pl.edu.zut.mad.tools.nanny.Nanny;
 import pl.edu.zut.mad.tools.noise.meter.NoiseMeterActivity;
 import pl.edu.zut.mad.tools.whereIsCar.WhereIsCar;
@@ -22,6 +23,7 @@ public class MainActivity extends Activity implements OnClickListener {
     Button btnNoise;
     Button btnWhereIsCar;
     Button btnCompass;
+    Button btnLightMeter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -33,12 +35,14 @@ public class MainActivity extends Activity implements OnClickListener {
 	btnNoise = (Button) findViewById(R.id.btnNoiseMeter);
 	btnWhereIsCar = (Button) findViewById(R.id.btnWhereIsCar);
 	btnCompass = (Button) findViewById(R.id.btnCompass);
+	btnLightMeter = (Button)findViewById(R.id.btnLightMeter);
 
 	btnInclinometer.setOnClickListener(this);
 	btnNanny.setOnClickListener(this);
 	btnNoise.setOnClickListener(this);
 	btnWhereIsCar.setOnClickListener(this);
 	btnCompass.setOnClickListener(this);
+	btnLightMeter.setOnClickListener(this);
     }
 
     @Override
@@ -73,6 +77,11 @@ public class MainActivity extends Activity implements OnClickListener {
 	case R.id.btnCompass:
 	    Intent compassIntent = new Intent(this, Compass.class);
 	    startActivity(compassIntent);
+	    break;
+	    
+	case R.id.btnLightMeter:
+	    Intent lightMeterIntent = new Intent(this, LightMeter.class);
+	    startActivity(lightMeterIntent);
 	    break;
 
 	}

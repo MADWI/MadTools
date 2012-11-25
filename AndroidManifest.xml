@@ -85,6 +85,11 @@
             android:label="@string/title_activity_chat_server"
             android:theme="@android:style/Theme.Black.NoTitleBar" >
         </activity>
+        <activity
+            android:name=".lightmeter.LightMeter"
+            android:label="@string/title_activity_light_meter"
+            android:theme="@android:style/Theme.Black.NoTitleBar" >
+        </activity>
     </application>
 
 </manifest>
