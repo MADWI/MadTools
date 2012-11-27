@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/RelativeLayout1"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent" >
+    android:layout_height="fill_parent"
+    android:background="@color/MadColor" >
 
     <TextView
         android:id="@+id/textView1"
@@ -13,7 +14,7 @@
         android:text="Czujnik oświetlenia"
         android:textColor="#FFFFFF"
         android:textSize="30dip" />
-
+
     <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
@@ -25,8 +26,8 @@
         android:gravity="center"
         android:text="Aktualny odczyt [lx]"
         android:textColor="#FFFFFF"
-        android:textSize="20dip" />
-
+        android:textSize="30dip" />
+
     <TextView
         android:id="@+id/readVal"
         android:layout_width="wrap_content"
@@ -38,6 +39,6 @@
         android:gravity="center"
         android:text="0"
         android:textColor="#FFFFFF"
-        android:textSize="25dip" />
+        android:textSize="40dip" />
 
 </RelativeLayout>

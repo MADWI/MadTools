@@ -17,27 +17,22 @@ public class NoiseMeterActivity extends Activity implements
 
 	private static final String TAG = "NoiseMeterActivity";
 
-	MicrophoneInput micInput; // The micInput object provides real time audio.
-	TextView mdBTextView;
-	TextView mdBFractionTextView;
-
+	private MicrophoneInput micInput; // The micInput object provides real time
+										// audio.
 	private TextView noiseLevel;
+	private BarLevelDrawable mBarLevel;
 
-	int count = 0;
+	private int count = 0;
 	private static GraphicalView view;
 	private NoiseLinearGraph lineGraph;
 
-	BarLevelDrawable mBarLevel;
-
-	double mOffsetdB = 10; // Offset for bar, i.e. 0 lit LEDs at 10 dB.
+	private double mOffsetdB = 10; // Offset for bar, i.e. 0 lit LEDs at 10 dB.
 	// The Google ASR input requirements state that audio input sensitivity
 	// should be set such that 90 dB SPL at 1000 Hz yields RMS of 2500 for
 	// 16-bit samples, i.e. 20 * log_10(2500 / mGain) = 90.
-	double mGain = 2500.0 / Math.pow(10.0, 90.0 / 20.0);
-	// For displaying error in calibration.
-	double mDifferenceFromNominal = 0.0;
-	double mRmsSmoothed; // Temporally filtered version of RMS.
-	double mAlpha = 0.9; // Coefficient of IIR smoothing filter for RMS.
+	private double mGain = 2500.0 / Math.pow(10.0, 90.0 / 20.0);
+	private double mRmsSmoothed; // Temporally filtered version of RMS.
+	private double mAlpha = 0.9; // Coefficient of IIR smoothing filter for RMS.
 
 	// Variables to monitor UI update and check for slow updates.
 	private volatile boolean mDrawing;
@@ -47,17 +42,16 @@ public class NoiseMeterActivity extends Activity implements
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		// Read the layout and construct.
 		setContentView(R.layout.activity_noise_meter);
+
 		// Here the micInput object is created for audio capture.
 		// It is set up to call this object to handle real time audio frames of
 		// PCM samples. The incoming frames will be handled by the
 		// processAudioFrame method below.
 		micInput = new MicrophoneInput(this);
+
 		lineGraph = new NoiseLinearGraph(this);
-
 		noiseLevel = (TextView) findViewById(R.id.noiseLevel);
-
 		mBarLevel = (BarLevelDrawable) findViewById(R.id.bar_level_drawable_view);
 
 	}
@@ -118,17 +112,13 @@ public class NoiseMeterActivity extends Activity implements
 					mBarLevel.setLevel((mOffsetdB + rmsdB) / 80);
 
 					DecimalFormat df = new DecimalFormat("##");
-					noiseLevel.setText(df.format(20 + rmsdB));
+					noiseLevel.setText(df.format(20 + rmsdB) + " dB");
 
 					count++;
 					GraphPoint p = new GraphPoint(count, 20 + rmsdB);
 					lineGraph.addNewPoints(p);
 					view.repaint();
 
-					// DecimalFormat df_fraction = new DecimalFormat("#");
-					// int one_decimal = (int) (Math.round(Math.abs(rmsdB *
-					// 10))) % 10;
-					// mdBFractionTextView.setText(Integer.toString(one_decimal));
 					mDrawing = false;
 				}
 			});

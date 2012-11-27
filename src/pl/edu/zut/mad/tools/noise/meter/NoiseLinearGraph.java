@@ -22,13 +22,12 @@ public class NoiseLinearGraph {
 	// This will be used to customize line 1
 
 	public NoiseLinearGraph(Context ctx) {
-		// Add single dataset to multiple dataset
+
 		dataset.setTitle(ctx.getString(R.string.noise_bar_title));
 		mDataset.addSeries(dataset);
 
-		mRenderer.setXTitle("t,s");
-		mRenderer.setYTitle("dB");
-		mRenderer.setBarSpacing(0.5f);
+		mRenderer.setXTitle("");
+		mRenderer.setYTitle("dB");		
 		mRenderer.setAxesColor(Color.WHITE);
 		mRenderer.setLabelsColor(Color.WHITE);
 		mRenderer.setYAxisMax(120.0f);
@@ -38,6 +37,7 @@ public class NoiseLinearGraph {
 		XYSeriesRenderer renderer = new XYSeriesRenderer();
 		renderer.setDisplayChartValues(false);
 		renderer.setColor(Color.WHITE);
+		renderer.setLineWidth(3.0f);
 		mRenderer.addSeriesRenderer(renderer);
 
 	}
