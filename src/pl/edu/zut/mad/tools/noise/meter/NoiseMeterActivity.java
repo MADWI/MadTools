@@ -1,107 +1,143 @@
 package pl.edu.zut.mad.tools.noise.meter;
 
-import java.io.IOException;
+import java.text.DecimalFormat;
 
 import org.achartengine.GraphicalView;
 
 import pl.edu.zut.mad.tools.R;
+import android.app.Activity;
 import android.media.MediaRecorder;
 import android.os.Bundle;
-import android.os.Handler;
-import android.app.Activity;
 import android.util.Log;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-public class NoiseMeterActivity extends Activity {
+public class NoiseMeterActivity extends Activity implements
+		MicrophoneInputListener {
 
 	private static final String TAG = "NoiseMeterActivity";
 
-	TextView noiseLevel;
-	TextView test;
+	MicrophoneInput micInput; // The micInput object provides real time audio.
+	TextView mdBTextView;
+	TextView mdBFractionTextView;
 
-	double currentAmp = -1;
-	double maxAmp = MediaRecorder.getAudioSourceMax();
-	private Handler handler = new Handler();
-	double noise = 0.00;
+	private TextView noiseLevel;
 
 	int count = 0;
 	private static GraphicalView view;
-	private NoiseBarGraph bar;
+	private NoiseLinearGraph lineGraph;
 
+	BarLevelDrawable mBarLevel;
+
+	double mOffsetdB = 10; // Offset for bar, i.e. 0 lit LEDs at 10 dB.
+	// The Google ASR input requirements state that audio input sensitivity
+	// should be set such that 90 dB SPL at 1000 Hz yields RMS of 2500 for
+	// 16-bit samples, i.e. 20 * log_10(2500 / mGain) = 90.
+	double mGain = 2500.0 / Math.pow(10.0, 90.0 / 20.0);
+	// For displaying error in calibration.
+	double mDifferenceFromNominal = 0.0;
+	double mRmsSmoothed; // Temporally filtered version of RMS.
+	double mAlpha = 0.9; // Coefficient of IIR smoothing filter for RMS.
+
+	// Variables to monitor UI update and check for slow updates.
+	private volatile boolean mDrawing;
+	private volatile int mDrawingCollided;
+
+	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		// Read the layout and construct.
 		setContentView(R.layout.activity_noise_meter);
+		// Here the micInput object is created for audio capture.
+		// It is set up to call this object to handle real time audio frames of
+		// PCM samples. The incoming frames will be handled by the
+		// processAudioFrame method below.
+		micInput = new MicrophoneInput(this);
+		lineGraph = new NoiseLinearGraph(this);
 
-		bar = new NoiseBarGraph(this);
 		noiseLevel = (TextView) findViewById(R.id.noiseLevel);
+
+		mBarLevel = (BarLevelDrawable) findViewById(R.id.bar_level_drawable_view);
 
 	}
 
 	@Override
 	protected void onStart() {
 		super.onStart();
-		view = bar.getView(this);
+		view = lineGraph.getView(this);
 		LinearLayout layout = (LinearLayout) findViewById(R.id.graphLayout);
 		layout.addView(view);
-	}
 
-	@Override
-	protected void onResume() {
-		Log.d(TAG, "onResume");
-
-		handler.removeCallbacks(mUpdateTimeTask);
-		handler.postDelayed(mUpdateTimeTask, 500);
-
-		try {
-
-			RecordHandler.startRecording();
-
-		} catch (IOException e) {
-			Log.d(TAG, "Record IO error");
-			e.printStackTrace();
-		}
-
-		maxAmp = MediaRecorder.getAudioSourceMax() / 2700.0;
-
-		super.onResume();
 	}
 
 	@Override
 	protected void onPause() {
-		Log.d(TAG, "onPause");
-		handler.removeCallbacks(mUpdateTimeTask);
-
-		RecordHandler.stopRecording();
-
+		micInput.stop();
 		super.onPause();
 	}
 
-	private Runnable mUpdateTimeTask = new Runnable() {
-		public void run() {
-			currentAmpRead();
-			handler.postDelayed(mUpdateTimeTask, 500);
-		}
-	};
+	@Override
+	protected void onResume() {
 
-	private void currentAmpRead() {
-		Log.d(TAG, "currentAmpRead");
-		count++;
-
-		Log.d(TAG, Double.toString(maxAmp));
-		if (RecordHandler.getRecorder() != null)
-			currentAmp = RecordHandler.getRecorder().getMaxAmplitude() / 2700.0;
-
-		double tempNoise = 20.00 * Math.log10(currentAmp / maxAmp);
-		if (tempNoise > 0.0)
-			noise = tempNoise;
-
-		noiseLevel.setText(String.format("%4.1f", noise) + " dB");
-
-		GraphPoint p = new GraphPoint(count, noise);
-		bar.addNewPoints(p);
-		view.repaint();
+		micInput.setSampleRate(8000);
+		micInput.setAudioSource(MediaRecorder.AudioSource.VOICE_RECOGNITION);
+		micInput.start();
+		super.onResume();
 	}
 
+	/**
+	 * This method gets called by the micInput object owned by this activity. It
+	 * first computes the RMS value and then it sets up a bit of code/closure
+	 * that runs on the UI thread that does the actual drawing.
+	 */
+	@Override
+	public void processAudioFrame(short[] audioFrame) {
+		if (!mDrawing) {
+			mDrawing = true;
+			// Compute the RMS value. (Note that this does not remove DC).
+			double rms = 0;
+			for (int i = 0; i < audioFrame.length; i++) {
+				rms += audioFrame[i] * audioFrame[i];
+			}
+			rms = Math.sqrt(rms / audioFrame.length);
+
+			// Compute a smoothed version for less flickering of the display.
+			mRmsSmoothed = mRmsSmoothed * mAlpha + (1 - mAlpha) * rms;
+			final double rmsdB = 20.0 * Math.log10(mGain * mRmsSmoothed);
+
+			// Set up a method that runs on the UI thread to update of the LED
+			// bar
+			// and numerical display.
+			mBarLevel.post(new Runnable() {
+				@Override
+				public void run() {
+					// The bar has an input range of [0.0 ; 1.0] and 10
+					// segments.
+					// Each LED corresponds to 6 dB.
+					mBarLevel.setLevel((mOffsetdB + rmsdB) / 80);
+
+					DecimalFormat df = new DecimalFormat("##");
+					noiseLevel.setText(df.format(20 + rmsdB));
+
+					count++;
+					GraphPoint p = new GraphPoint(count, 20 + rmsdB);
+					lineGraph.addNewPoints(p);
+					view.repaint();
+
+					// DecimalFormat df_fraction = new DecimalFormat("#");
+					// int one_decimal = (int) (Math.round(Math.abs(rmsdB *
+					// 10))) % 10;
+					// mdBFractionTextView.setText(Integer.toString(one_decimal));
+					mDrawing = false;
+				}
+			});
+		} else {
+			mDrawingCollided++;
+			Log.v(TAG,
+					"Level bar update collision, i.e. update took longer "
+							+ "than 20ms. Collision count"
+							+ Double.toString(mDrawingCollided));
+		}
+	}
 }

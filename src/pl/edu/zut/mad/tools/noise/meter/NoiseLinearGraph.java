@@ -2,20 +2,16 @@ package pl.edu.zut.mad.tools.noise.meter;
 
 import org.achartengine.ChartFactory;
 import org.achartengine.GraphicalView;
-import org.achartengine.chart.BarChart.Type;
-
 import org.achartengine.model.TimeSeries;
 import org.achartengine.model.XYMultipleSeriesDataset;
-
 import org.achartengine.renderer.XYMultipleSeriesRenderer;
 import org.achartengine.renderer.XYSeriesRenderer;
 
 import pl.edu.zut.mad.tools.R;
-
 import android.content.Context;
 import android.graphics.Color;
 
-public class NoiseBarGraph {
+public class NoiseLinearGraph {
 
 	private GraphicalView view;
 
@@ -25,7 +21,7 @@ public class NoiseBarGraph {
 
 	// This will be used to customize line 1
 
-	public NoiseBarGraph(Context ctx) {
+	public NoiseLinearGraph(Context ctx) {
 		// Add single dataset to multiple dataset
 		dataset.setTitle(ctx.getString(R.string.noise_bar_title));
 		mDataset.addSeries(dataset);
@@ -41,14 +37,14 @@ public class NoiseBarGraph {
 		// Customize bar 1
 		XYSeriesRenderer renderer = new XYSeriesRenderer();
 		renderer.setDisplayChartValues(false);
-		renderer.setColor(Color.YELLOW);
+		renderer.setColor(Color.WHITE);
 		mRenderer.addSeriesRenderer(renderer);
 
 	}
 
 	public GraphicalView getView(Context ctx) {
 
-		view = ChartFactory.getBarChartView(ctx, mDataset, mRenderer, Type.DEFAULT);
+		view = ChartFactory.getLineChartView(ctx, mDataset, mRenderer);
 		return view;
 
 	}

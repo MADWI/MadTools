@@ -5,16 +5,15 @@
 
     <LinearLayout
         android:id="@+id/graphLayout"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/noiseLevel"
-        android:layout_margin="2dp" >
+        android:layout_below="@+id/noiseLevel" >
 
     </LinearLayout>
-
+
     <TextView
         android:id="@+id/noiseLevel"
         android:layout_width="wrap_content"
@@ -26,5 +25,12 @@
         android:text="@string/zero_decibel"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textSize="70dp" />
+
+    <view
+        android:id="@+id/bar_level_drawable_view"
+        android:layout_width="fill_parent"
+        android:layout_height="48dp"
+        class="pl.edu.zut.mad.tools.noise.meter.BarLevelDrawable" >
+    </view>
 
 </RelativeLayout>
