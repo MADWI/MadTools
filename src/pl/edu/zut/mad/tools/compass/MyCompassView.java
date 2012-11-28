@@ -1,6 +1,5 @@
 package pl.edu.zut.mad.tools.compass;
 
-import pl.edu.zut.mad.tools.R;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -34,9 +33,8 @@ public class MyCompassView extends View {
 
 		float radius = (float) (Math.max(xPoint, yPoint) * 0.6);
 		canvas.drawCircle(xPoint, yPoint, radius, paint);
-		canvas.drawRect(0, 0, getMeasuredWidth(), getMeasuredHeight(), paint);
-		canvas.drawColor(R.color.MadColor);
-
+		// canvas.drawRect(0, 0, getMeasuredWidth(), getMeasuredHeight(),
+		// paint);
 		// 3.143 is a good approximation for the circle
 		canvas.drawLine(
 				xPoint,

@@ -6,76 +6,86 @@
 
     <Button
         android:id="@+id/btnNanny"
+        style="@style/ButtonText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_marginLeft="28dp"
         android:layout_marginTop="41dp"
+        android:background="@drawable/black_button"
         android:text="@string/test_title_nanny"
         android:visibility="gone" />
-
+
     <ImageView
         android:id="@+id/imgLogo"
         android:layout_width="fill_parent"
         android:layout_height="200dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:layout_margin="10dp"
+        android:layout_centerHorizontal="true"
         android:contentDescription="@string/empty"
         android:src="@drawable/logo" />
-
+
     <Button
         android:id="@+id/btnInclinometer"
+        style="@style/ButtonText"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
+        android:layout_height="80dp"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/imgLogo"
         android:layout_margin="5dp"
+        android:layout_toRightOf="@+id/btnCompass"
+        android:background="@drawable/green_button"
         android:text="@string/test_title_inclinometer"
         android:textSize="25dip" />
-
+
+    <Button
+        android:id="@+id/btnCompass"
+        style="@style/ButtonText"
+        android:layout_width="wrap_content"
+        android:layout_height="80dp"
+        android:layout_alignBaseline="@+id/btnInclinometer"
+        android:layout_alignBottom="@+id/btnInclinometer"
+        android:layout_margin="5dp"
+        android:background="@drawable/red_button"
+        android:text="@string/title_activity_compass"
+        android:textSize="25dip" />
+
     <Button
         android:id="@+id/btnNoiseMeter"
+        style="@style/ButtonText"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="80dp"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
         android:layout_below="@+id/btnInclinometer"
         android:layout_margin="5dp"
+        android:layout_toLeftOf="@+id/btnLightMeter"
+        android:background="@drawable/yellow_button"
         android:text="@string/test_title_noise"
         android:textSize="25dip" />
-
+
     <Button
         android:id="@+id/btnWhereIsCar"
-        android:layout_width="wrap_content"
+        style="@style/ButtonText"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/btnNoiseMeter"
         android:layout_margin="5dp"
+        android:layout_toRightOf="@+id/btnNanny"
+        android:background="@drawable/black_button"
         android:text="@string/title_activity_whereiscar"
         android:textSize="25dip" />
-
-    <Button
-        android:id="@+id/btnCompass"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/btnWhereIsCar"
-        android:layout_alignRight="@+id/btnWhereIsCar"
-        android:layout_below="@+id/btnWhereIsCar"
-        android:text="@string/title_activity_compass"
-        android:textSize="25dip" />
-
+
     <Button
         android:id="@+id/btnLightMeter"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/btnCompass"
-        android:layout_alignRight="@+id/btnCompass"
-        android:layout_below="@+id/btnCompass"
+        style="@style/ButtonText"
+        android:layout_width="fill_parent"
+        android:layout_height="80dp"
+        android:layout_above="@+id/btnWhereIsCar"
+        android:layout_margin="5dp"
+        android:layout_toRightOf="@+id/btnCompass"
+        android:background="@drawable/blue_button"
         android:text="@string/title_activity_light_meter"
         android:textSize="25dip" />
 

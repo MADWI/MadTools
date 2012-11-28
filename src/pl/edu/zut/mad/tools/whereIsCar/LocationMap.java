@@ -47,6 +47,7 @@ public class LocationMap extends MapActivity implements LocationListener {
 		locationTextView.setText("Dlugosc: " + String.valueOf(longitude2) + "\n" + "Szerokosc: " + String.valueOf(lattitude2));
 		
 	    mapView = (MapView) findViewById(R.id.mapview);
+		mapView.setSatellite(false);	
 	    mapView.setBuiltInZoomControls(true);
         
 	    locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);

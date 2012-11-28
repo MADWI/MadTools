@@ -4,41 +4,27 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="@color/MadColor" >
-
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:text="Czujnik oświetlenia"
-        android:textColor="#FFFFFF"
-        android:textSize="30dip" />
-
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/textView1"
-        android:layout_marginTop="61dp"
-        android:gravity="center"
-        android:text="Aktualny odczyt [lx]"
-        android:textColor="#FFFFFF"
-        android:textSize="30dip" />
-
+
     <TextView
         android:id="@+id/readVal"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/textView4"
-        android:layout_marginTop="29dp"
+        android:layout_marginTop="40dp"
         android:gravity="center"
-        android:text="0"
+        android:text="0 lx"
         android:textColor="#FFFFFF"
-        android:textSize="40dip" />
+        android:textSize="70dp" />
+
+    <LinearLayout
+        android:id="@+id/graphLayoutLight"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/readVal"
+        android:orientation="vertical" >
+
+    </LinearLayout>
 
 </RelativeLayout>

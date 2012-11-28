@@ -1,4 +1,4 @@
-package pl.edu.zut.mad.tools.noise.meter;
+package pl.edu.zut.mad.tools.utils;
 
 import org.achartengine.ChartFactory;
 import org.achartengine.GraphicalView;
@@ -7,11 +7,10 @@ import org.achartengine.model.XYMultipleSeriesDataset;
 import org.achartengine.renderer.XYMultipleSeriesRenderer;
 import org.achartengine.renderer.XYSeriesRenderer;
 
-import pl.edu.zut.mad.tools.R;
 import android.content.Context;
 import android.graphics.Color;
 
-public class NoiseLinearGraph {
+public class LinearGraph {
 
 	private GraphicalView view;
 
@@ -19,17 +18,17 @@ public class NoiseLinearGraph {
 	private XYMultipleSeriesDataset mDataset = new XYMultipleSeriesDataset();
 	private XYMultipleSeriesRenderer mRenderer = new XYMultipleSeriesRenderer();
 
-	public NoiseLinearGraph(Context ctx) {
+	public LinearGraph(String title, String xTitle, String yTitle, float yMax, float yMin) {
 
-		dataset.setTitle(ctx.getString(R.string.noise_bar_title));
+		dataset.setTitle(title);
 		mDataset.addSeries(dataset);
 
-		mRenderer.setXTitle("");
-		mRenderer.setYTitle("dB");
+		mRenderer.setXTitle(xTitle);
+		mRenderer.setYTitle(yTitle);
 		mRenderer.setAxesColor(Color.WHITE);
 		mRenderer.setLabelsColor(Color.WHITE);
-		mRenderer.setYAxisMax(120.0f);
-		mRenderer.setYAxisMin(0.0f);
+		mRenderer.setYAxisMax(yMax);
+		mRenderer.setYAxisMin(yMin);
 		mRenderer.setApplyBackgroundColor(true);
 		mRenderer.setMarginsColor(Color.argb(0x00, 0x01, 0x01, 0x01));
 		mRenderer.setBackgroundColor(Color.TRANSPARENT);

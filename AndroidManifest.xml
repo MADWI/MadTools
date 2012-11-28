@@ -26,8 +26,7 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
-        <uses-library android:name="com.google.android.maps" >
-        </uses-library>
+        <uses-library android:name="com.google.android.maps" />
 
         <activity
             android:name=".MainActivity"
@@ -60,12 +59,13 @@
         <activity
             android:name=".whereIsCar.WhereIsCar"
             android:label="@string/title_activity_whereiscar"
-            android:theme="@android:style/Theme.Black.NoTitleBar"
-             android:screenOrientation="portrait" >
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Black.NoTitleBar" >
         </activity>
         <activity
             android:name=".whereIsCar.LocationMap"
             android:label="@string/title_activity_whereiscar"
+            android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Black.NoTitleBar" >
         </activity>
         <activity

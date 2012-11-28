@@ -1,4 +1,4 @@
-package pl.edu.zut.mad.tools.noise.meter;
+package pl.edu.zut.mad.tools.utils;
 
 public class GraphPoint {
 

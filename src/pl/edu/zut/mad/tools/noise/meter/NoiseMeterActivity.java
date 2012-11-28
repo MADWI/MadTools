@@ -5,6 +5,8 @@ import java.text.DecimalFormat;
 import org.achartengine.GraphicalView;
 
 import pl.edu.zut.mad.tools.R;
+import pl.edu.zut.mad.tools.utils.GraphPoint;
+import pl.edu.zut.mad.tools.utils.LinearGraph;
 import android.app.Activity;
 import android.media.MediaRecorder;
 import android.os.Bundle;
@@ -24,7 +26,7 @@ public class NoiseMeterActivity extends Activity implements
 
 	private int count = 0;
 	private static GraphicalView view;
-	private NoiseLinearGraph lineGraph;
+	private LinearGraph lineGraph;
 
 	private double mOffsetdB = 10; // Offset for bar, i.e. 0 lit LEDs at 10 dB.
 	// The Google ASR input requirements state that audio input sensitivity
@@ -50,7 +52,8 @@ public class NoiseMeterActivity extends Activity implements
 		// processAudioFrame method below.
 		micInput = new MicrophoneInput(this);
 
-		lineGraph = new NoiseLinearGraph(this);
+		lineGraph = new LinearGraph(getString(R.string.noise_bar_title), "",
+				"dB", 120.0f, 0.0f);
 		noiseLevel = (TextView) findViewById(R.id.noiseLevel);
 		mBarLevel = (BarLevelDrawable) findViewById(R.id.bar_level_drawable_view);
 
