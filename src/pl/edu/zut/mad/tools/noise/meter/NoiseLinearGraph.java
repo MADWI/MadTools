@@ -19,25 +19,27 @@ public class NoiseLinearGraph {
 	private XYMultipleSeriesDataset mDataset = new XYMultipleSeriesDataset();
 	private XYMultipleSeriesRenderer mRenderer = new XYMultipleSeriesRenderer();
 
-	// This will be used to customize line 1
-
 	public NoiseLinearGraph(Context ctx) {
 
 		dataset.setTitle(ctx.getString(R.string.noise_bar_title));
 		mDataset.addSeries(dataset);
 
 		mRenderer.setXTitle("");
-		mRenderer.setYTitle("dB");		
+		mRenderer.setYTitle("dB");
 		mRenderer.setAxesColor(Color.WHITE);
 		mRenderer.setLabelsColor(Color.WHITE);
 		mRenderer.setYAxisMax(120.0f);
 		mRenderer.setYAxisMin(0.0f);
+		mRenderer.setApplyBackgroundColor(true);
+		mRenderer.setMarginsColor(Color.argb(0x00, 0x01, 0x01, 0x01));
+		mRenderer.setBackgroundColor(Color.TRANSPARENT);
 
 		// Customize bar 1
 		XYSeriesRenderer renderer = new XYSeriesRenderer();
 		renderer.setDisplayChartValues(false);
 		renderer.setColor(Color.WHITE);
 		renderer.setLineWidth(3.0f);
+
 		mRenderer.addSeriesRenderer(renderer);
 
 	}

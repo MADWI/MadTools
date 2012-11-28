@@ -108,7 +108,7 @@ public class NoiseMeterActivity extends Activity implements
 				public void run() {
 					// The bar has an input range of [0.0 ; 1.0] and 10
 					// segments.
-					// Each LED corresponds to 6 dB.
+					// Each LED corresponds to 8 dB.
 					mBarLevel.setLevel((mOffsetdB + rmsdB) / 80);
 
 					DecimalFormat df = new DecimalFormat("##");
