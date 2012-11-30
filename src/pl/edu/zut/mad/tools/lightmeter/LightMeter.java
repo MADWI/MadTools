@@ -39,7 +39,7 @@ public class LightMeter extends Activity implements SensorEventListener {
 		setContentView(R.layout.activity_light_meter);
 
 		lineGraph = new LinearGraph(getString(R.string.light_graph_title), "",
-				"lx", 1500f, 0.0f);
+				"lx", 1500f, 0.0f, 60.0f, 0.0f);
 
 		readValue = (TextView) findViewById(R.id.readVal);
 
@@ -82,11 +82,16 @@ public class LightMeter extends Activity implements SensorEventListener {
 	@Override
 	public void onSensorChanged(SensorEvent event) {
 		if (event.sensor.getType() == Sensor.TYPE_LIGHT) {
-			luxValue = event.values[0];			
+			luxValue = event.values[0];
 			readValue.setText(String.valueOf(Math.round(luxValue) + " lx"));
 			count++;
 			GraphPoint p = new GraphPoint(count, luxValue);
 			lineGraph.addNewPoints(p);
+			if (p.getX() > 60) {
+				lineGraph.setXAxisMin(p.getX() - 60);
+				lineGraph.setXAxisMax(p.getX());
+			}
+
 			view.repaint();
 		}
 	}

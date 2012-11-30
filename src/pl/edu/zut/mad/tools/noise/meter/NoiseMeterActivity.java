@@ -53,7 +53,7 @@ public class NoiseMeterActivity extends Activity implements
 		micInput = new MicrophoneInput(this);
 
 		lineGraph = new LinearGraph(getString(R.string.noise_bar_title), "",
-				"dB", 120.0f, 0.0f);
+				"dB", 120.0f, 0.0f, 60.0f, 0.0f);
 		noiseLevel = (TextView) findViewById(R.id.noiseLevel);
 		mBarLevel = (BarLevelDrawable) findViewById(R.id.bar_level_drawable_view);
 
@@ -120,6 +120,13 @@ public class NoiseMeterActivity extends Activity implements
 					count++;
 					GraphPoint p = new GraphPoint(count, 20 + rmsdB);
 					lineGraph.addNewPoints(p);
+
+					if (p.getX() > 60)
+					{
+						lineGraph.setXAxisMin(p.getX() - 60);
+						lineGraph.setXAxisMax(p.getX());
+					}
+
 					view.repaint();
 
 					mDrawing = false;

@@ -18,17 +18,22 @@ public class LinearGraph {
 	private XYMultipleSeriesDataset mDataset = new XYMultipleSeriesDataset();
 	private XYMultipleSeriesRenderer mRenderer = new XYMultipleSeriesRenderer();
 
-	public LinearGraph(String title, String xTitle, String yTitle, float yMax, float yMin) {
+	public LinearGraph(String title, String xTitle, String yTitle, float yMax,
+			float yMin, float xMax,float xMin) {
 
 		dataset.setTitle(title);
 		mDataset.addSeries(dataset);
 
+		mRenderer.setPanEnabled(false, false);
+		mRenderer.setShowLegend(false);
 		mRenderer.setXTitle(xTitle);
 		mRenderer.setYTitle(yTitle);
 		mRenderer.setAxesColor(Color.WHITE);
 		mRenderer.setLabelsColor(Color.WHITE);
 		mRenderer.setYAxisMax(yMax);
 		mRenderer.setYAxisMin(yMin);
+		mRenderer.setXAxisMax(xMax);
+		mRenderer.setXAxisMin(xMin);
 		mRenderer.setApplyBackgroundColor(true);
 		mRenderer.setMarginsColor(Color.argb(0x00, 0x01, 0x01, 0x01));
 		mRenderer.setBackgroundColor(Color.TRANSPARENT);
@@ -41,6 +46,14 @@ public class LinearGraph {
 
 		mRenderer.addSeriesRenderer(renderer);
 
+	}
+
+	public void setXAxisMin(int Xmin) {
+		mRenderer.setXAxisMin(Xmin);
+	}
+
+	public void setXAxisMax(int Xmax) {
+		mRenderer.setXAxisMax(Xmax);
 	}
 
 	public GraphicalView getView(Context ctx) {
