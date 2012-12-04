@@ -9,6 +9,7 @@ import pl.edu.zut.mad.tools.utils.Constans;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Point;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -26,13 +27,21 @@ public class LocationMap extends MapActivity implements LocationListener {
 	private MapController mapController;
 	private MapView mapView;
 	private GeoPoint point;
+	private GeoPoint point2;
 	
-	float lattitude;
-	float longitude;
+	private float lattitude;
+	private float longitude;
 	
-	float lattitude2;
-	float longitude2;
+	private float lattitude2;
+	private float longitude2;
 	
+	private float lattitude_from;
+	private float longitude_from;
+	private float lattitude_from2;
+	private float longitude_from2;
+	private float result[] = new float[5];
+	
+	 MapOverlay mapOvlay;
 	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -61,12 +70,12 @@ public class LocationMap extends MapActivity implements LocationListener {
 		lattitude2 =  (lattitude * 1000000);
 		
 		point = new GeoPoint((int)longitude2, (int)lattitude2 );
+		point2 = new GeoPoint((int)longitude_from2 , (int)lattitude_from2);
+		
 	    mapController = mapView.getController();
 	    mapController.setCenter(point);
 	    mapController.setZoom(18);	
 	    
-
-		
 	}
 
     @Override
@@ -95,15 +104,24 @@ public class LocationMap extends MapActivity implements LocationListener {
 	@Override
 	public void onLocationChanged(Location location) {
 		if(location != null){
-			locationTextView.setText("Dlugosc: " + String.valueOf(longitude) + "\n" + "Szerokosc: " + String.valueOf(lattitude));
-			/*
-			longitude2 = location.getLongitude();
-			lattitude2= location.getLatitude();
 			
-			Longitude2 = String.valueOf(longitude2);
-			Lattitude2 = String.valueOf(lattitude2);
-			locationTextView.setText("Dlugosc: " + Longitude2 + "\n" + "Szerokosc: " + Lattitude2);
-			*/
+			mapView.getOverlays().clear();
+			longitude_from = (float) location.getLongitude();
+			lattitude_from= (float) location.getLatitude();
+			
+			longitude_from2 = longitude_from * 1000000;
+			lattitude_from2= lattitude_from * 1000000;
+			point2 = new GeoPoint((int)longitude_from2 , (int)lattitude_from2);
+			Location.distanceBetween(lattitude_from, longitude_from, lattitude, longitude, result);
+			
+			locationTextView.setText("Dlugosc: " + String.valueOf(longitude_from) + "\n" + "Szerokosc: " + String.valueOf(lattitude_from) + "  Do auta: " + String.valueOf((int)result[0]) + " m");
+			//locationTextView.setText(String.valueOf((int)result[0]+" ")+String.valueOf((int)result[1]+" ")+String.valueOf((int)result[2]+" ")+String.valueOf((int)result[3]+" ") + String.valueOf((int)result[4]+" "));
+			
+			mapOvlay = new MapOverlay(point, point2);
+			mapView.getOverlays().add(mapOvlay);
+			
+		    mapController.setCenter(point2);
+		    mapController.setZoom(16);	
 			}
 	}
 

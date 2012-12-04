@@ -25,9 +25,6 @@ public class WhereIsCar extends Activity implements OnClickListener, LocationLis
 	double lattitude;
 	double longitude;
 	
-	private String Lattitude;
-	private String Longitude;
-	
 	public String test1;
 	public String test2 = "";
 	
