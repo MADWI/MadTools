@@ -39,30 +39,13 @@ public class MyCompassView extends View {
 	protected void onDraw(Canvas canvas) {
 		int xPoint = getMeasuredWidth() / 2;
 		int yPoint = getMeasuredHeight() / 2;
-
-		float radius = (float) (Math.max(xPoint, yPoint) * 0.6);
-		//canvas.drawCircle(xPoint, yPoint, radius, paint);
-		// canvas.drawRect(0, 0, getMeasuredWidth(), getMeasuredHeight(),
-		// paint);
-		// 3.143 is a good approximation for the circle
-//	    Resources res = mContext.getResources();
-//	    Drawable myImage = res.getDrawable(R.drawable.my_image);
 		
-		canvas.drawBitmap(imageIndicator, xPoint-imageIndicator.getWidth()/2, yPoint-imageIndicator.getHeight()/2, null);
+		canvas.drawBitmap(imageCompass, xPoint-imageCompass.getWidth()/2, yPoint-imageCompass.getHeight()/2, null);
 		canvas.save();
 		canvas.rotate(-position, xPoint ,yPoint);
-		canvas.drawBitmap(imageCompass, xPoint- imageCompass.getWidth()/2, yPoint - imageCompass.getHeight()/2, null);
+		canvas.drawBitmap(imageIndicator, xPoint- imageIndicator.getWidth()/2, yPoint - imageIndicator.getHeight()/2, null);
 		canvas.restore();
-	    //imageCompass.draw(canvas);
-		canvas.drawLine(
-				xPoint,
-				yPoint,
-				(float) (xPoint + radius
-						* Math.sin((double) (-position) / 180 * 3.143)),
-				(float) (yPoint - radius
-						* Math.cos((double) (-position) / 180 * 3.143)), paint);
-
-		canvas.drawText(String.valueOf(position), xPoint, yPoint, paint);
+	 
 	}
 
 	public void updateData(float position) {
