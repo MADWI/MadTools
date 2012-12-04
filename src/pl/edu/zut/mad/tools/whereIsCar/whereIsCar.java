@@ -62,10 +62,8 @@ public class WhereIsCar extends Activity implements OnClickListener, LocationLis
 	    location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 	    	if (location != null) {
 			      Log.d(TAG, location.toString());
-				  Longitude = String.valueOf(longitude);
-				  Lattitude = String.valueOf(lattitude);
-				  TextLatti.setText(Lattitude);
-				  TextLongi.setText(Longitude);
+				  TextLatti.setText( String.valueOf(lattitude));
+				  TextLongi.setText(String.valueOf(longitude));
 		
 			      this.onLocationChanged(location);
 			    }
@@ -89,11 +87,9 @@ public class WhereIsCar extends Activity implements OnClickListener, LocationLis
 		switch (v.getId()) {
 		case R.id.btnSaveLocation:		
 			restoreData(settings);
-			Longitude = String.valueOf(longitude);
-			Lattitude = String.valueOf(lattitude);
 			saveData(settings, "Dlugosc", (float)longitude);
 			saveData(settings, "Szerokosc", (float)lattitude);
-			Toast.makeText( getApplicationContext(),"Zapisano!  \n" + "Dlugoœæ: "+Longitude + "\n" + "Szerokoœæ: " + Lattitude ,	Toast.LENGTH_SHORT ).show();
+			Toast.makeText( getApplicationContext(),"Zapisano!  \n" + "Dlugoœæ: "+ String.valueOf(longitude) + "\n" + "Szerokoœæ: " + String.valueOf(lattitude) ,	Toast.LENGTH_SHORT ).show();
 			break;
 			
 		case R.id.btnTakeMe:
@@ -119,13 +115,11 @@ public class WhereIsCar extends Activity implements OnClickListener, LocationLis
 
 		public void onProviderDisabled(String provider) {
 			// TODO Auto-generated method stub
-			Toast.makeText( getApplicationContext(),"Gps Disabled",	Toast.LENGTH_SHORT ).show();
 			
 		}
 
 		public void onProviderEnabled(String provider) {
 			// TODO Auto-generated method stub
-			Toast.makeText( getApplicationContext(),"Gps Enabled",	Toast.LENGTH_SHORT ).show();
 			
 		}
 
@@ -140,10 +134,8 @@ public class WhereIsCar extends Activity implements OnClickListener, LocationLis
 				longitude = location.getLongitude();
 				lattitude = location.getLatitude();
 				
-				Longitude = String.valueOf(longitude);
-				Lattitude = String.valueOf(lattitude);
-				TextLatti.setText(Lattitude);
-				TextLongi.setText(Longitude);
+				 TextLatti.setText( String.valueOf(lattitude));
+				 TextLongi.setText(String.valueOf(longitude));
 				}
 		}
 		

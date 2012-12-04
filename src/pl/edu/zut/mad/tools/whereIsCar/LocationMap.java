@@ -30,8 +30,8 @@ public class LocationMap extends MapActivity implements LocationListener {
 	float lattitude;
 	float longitude;
 	
-	int lattitude2;
-	int longitude2;
+	float lattitude2;
+	float longitude2;
 	
 	
 	public void onCreate(Bundle savedInstanceState) {
@@ -57,10 +57,10 @@ public class LocationMap extends MapActivity implements LocationListener {
 	    locationTextView.setText("Dlugosc: " + String.valueOf(longitude) + "\n" + "Szerokosc: " + String.valueOf(lattitude));
 	    
 	    
-		longitude2 = (int) (longitude * 1000000);
-		lattitude2 = (int) (lattitude * 1000000);
+		longitude2 =  (longitude * 1000000);
+		lattitude2 =  (lattitude * 1000000);
 		
-		point = new GeoPoint(longitude2, lattitude2 );
+		point = new GeoPoint((int)longitude2, (int)lattitude2 );
 	    mapController = mapView.getController();
 	    mapController.setCenter(point);
 	    mapController.setZoom(18);	
