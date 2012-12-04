@@ -48,10 +48,10 @@ public class MyCompassView extends View {
 //	    Resources res = mContext.getResources();
 //	    Drawable myImage = res.getDrawable(R.drawable.my_image);
 		
-		canvas.drawBitmap(imageCompass, xPoint-imageCompass.getWidth()/2, yPoint-imageCompass.getHeight()/2, null);
+		canvas.drawBitmap(imageIndicator, xPoint-imageIndicator.getWidth()/2, yPoint-imageIndicator.getHeight()/2, null);
 		canvas.save();
 		canvas.rotate(-position, xPoint ,yPoint);
-		canvas.drawBitmap(imageIndicator, xPoint- imageIndicator.getWidth()/2, yPoint - imageIndicator.getHeight()/2, null);
+		canvas.drawBitmap(imageCompass, xPoint- imageCompass.getWidth()/2, yPoint - imageCompass.getHeight()/2, null);
 		canvas.restore();
 	    //imageCompass.draw(canvas);
 		canvas.drawLine(
