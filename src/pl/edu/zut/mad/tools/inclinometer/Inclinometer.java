@@ -125,6 +125,7 @@ public class Inclinometer extends Activity implements SensorEventListener {
 	xPostv.setText(String.format("%.0f", azimuth));
 	yPostv.setText(String.format("%.0f", 360 - pitch));
 	zPostv.setText(String.format("%.0f", 360 - roll));
+	//http://stackoverflow.com/questions/3501126/how-to-draw-a-filled-triangle-in-android-canvas
 
     }
 }

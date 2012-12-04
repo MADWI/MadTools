@@ -5,6 +5,6 @@
 	<classpathentry kind="lib" path="libs/achartengine-1.1.0-rc1.jar"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="gen"/>
-	<classpathentry kind="lib" path="maps.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Michazzz/Documents/GitHub/MadTools/maps.jar" sourcepath="maps.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>
