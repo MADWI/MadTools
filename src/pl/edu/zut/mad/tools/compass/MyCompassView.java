@@ -1,6 +1,9 @@
 package pl.edu.zut.mad.tools.compass;
 
+import pl.edu.zut.mad.tools.R;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -10,10 +13,16 @@ public class MyCompassView extends View {
 
 	private Paint paint;
 	private float position = 0;
+	private final Bitmap imageCompass;
+	private final Bitmap imageIndicator;
 
 	public MyCompassView(Context context) {
 		super(context);
 		init();
+		//load compass image
+		imageCompass = BitmapFactory.decodeResource(getResources(), R.drawable.compass);
+		imageIndicator = BitmapFactory.decodeResource(getResources(), R.drawable.wskazowka);
+		
 	}
 
 	private void init() {
@@ -32,11 +41,19 @@ public class MyCompassView extends View {
 		int yPoint = getMeasuredHeight() / 2;
 
 		float radius = (float) (Math.max(xPoint, yPoint) * 0.6);
-		canvas.drawCircle(xPoint, yPoint, radius, paint);
+		//canvas.drawCircle(xPoint, yPoint, radius, paint);
 		// canvas.drawRect(0, 0, getMeasuredWidth(), getMeasuredHeight(),
 		// paint);
 		// 3.143 is a good approximation for the circle
+//	    Resources res = mContext.getResources();
+//	    Drawable myImage = res.getDrawable(R.drawable.my_image);
 		
+		canvas.drawBitmap(imageCompass, xPoint-imageCompass.getWidth()/2, yPoint-imageCompass.getHeight()/2, null);
+		canvas.save();
+		canvas.rotate(-position, xPoint ,yPoint);
+		canvas.drawBitmap(imageIndicator, xPoint- imageIndicator.getWidth()/2, yPoint - imageIndicator.getHeight()/2, null);
+		canvas.restore();
+	    //imageCompass.draw(canvas);
 		canvas.drawLine(
 				xPoint,
 				yPoint,
