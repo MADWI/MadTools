@@ -66,7 +66,7 @@ public class WhereIsCar extends Activity implements OnClickListener, LocationLis
 		
 		settings = getSharedPreferences(Constans.GPS_LOCATION_PREFERENCES, Activity.MODE_PRIVATE);
 		
-		locationManagerStatus =  (LocationManager) getSystemService(LOCATION_SERVICE);
+		locationManagerStatus =  (LocationManager) this.getSystemService(LOCATION_SERVICE);
 		if (!locationManagerStatus.isProviderEnabled(android.location.LocationManager.GPS_PROVIDER ))
 		{
 			Log.d(TAG, "GPS disabled");
@@ -78,10 +78,9 @@ public class WhereIsCar extends Activity implements OnClickListener, LocationLis
 					getString(R.string.cancel_button_title));
 			dialog.show();
 		} else{
-			Log.d(TAG, "WiFi enabled");
+			Log.d(TAG, "GPS enabled");
 			refreshGPSstatus();
 		}
-		refreshGPSstatus();
 		
 		locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
 		locationManager.requestLocationUpdates( LocationManager.GPS_PROVIDER, 10, 10, this);
