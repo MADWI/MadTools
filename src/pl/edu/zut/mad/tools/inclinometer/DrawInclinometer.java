@@ -1,6 +1,9 @@
 package pl.edu.zut.mad.tools.inclinometer;
 
+import pl.edu.zut.mad.tools.R;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -10,19 +13,21 @@ public class DrawInclinometer extends View {
 
     private Paint paint = new Paint();
     private double angle = 0.0;
+    private final Bitmap imageInclinometer;
 
     public DrawInclinometer(Context context) {
 	super(context);
 	init();
+	imageInclinometer = BitmapFactory.decodeResource(getResources(), R.drawable.inclinometer);
     }
 
     private void init() {
 	paint = new Paint();
 	paint.setAntiAlias(true);
-	paint.setStrokeWidth(3);
+	paint.setStrokeWidth(7);
 	paint.setTextSize(40);
 	paint.setStyle(Paint.Style.FILL_AND_STROKE);
-	paint.setColor(Color.BLUE);
+	paint.setColor(Color.CYAN);
     }
 
     @Override
@@ -31,7 +36,9 @@ public class DrawInclinometer extends View {
 	int yPoint = getMeasuredWidth() / 2;
 
 	double radius = (Math.max(xPoint, yPoint) * 0.8);
-
+	
+	canvas.drawBitmap(imageInclinometer, 100, 89, null);
+	
 	canvas.drawLine(0, getHeight() - 55, getWidth(), getHeight() - 55,
 		paint);
 
@@ -67,8 +74,10 @@ public class DrawInclinometer extends View {
 	    canvas.drawText(String.format("%.0f", 90+angle), getWidth() / 3,
 			getHeight() / 4, paint);
 	}*/
-	canvas.drawText(String.format("%.0f", angle), getWidth() / 4,
-		getHeight() / 5, paint);
+	canvas.drawText(String.format("%.0f", angle), 100,
+		100, paint);
+	canvas.drawText("o", 180,
+		70, paint);
 	
 
     }
