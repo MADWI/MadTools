@@ -30,11 +30,4 @@
 		<nature>com.android.ide.eclipse.adt.AndroidNature</nature>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
-	<linkedResources>
-		<link>
-			<name>src/pl/edu/zut/mad/tools/inclinometer/DrawInclinometer.java</name>
-			<type>1</type>
-			<location>C:/Users/Michazzz/Documents/GitHub/MadTools/src/pl/edu/zut/mad/tools/inclinometer/DrawInclinometer.java</location>
-		</link>
-	</linkedResources>
 </projectDescription>
