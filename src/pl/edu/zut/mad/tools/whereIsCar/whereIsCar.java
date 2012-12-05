@@ -3,13 +3,17 @@ package pl.edu.zut.mad.tools.whereIsCar;
 import pl.edu.zut.mad.tools.R;
 import pl.edu.zut.mad.tools.utils.Constans;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -30,6 +34,7 @@ public class WhereIsCar extends Activity implements OnClickListener, LocationLis
 	
 	private LocationManager locationManager;
 	private Location location;
+	private LocationManager locationManagerStatus;
 	
 	private TextView TextLongi;
 	private TextView TextLatti;
@@ -54,6 +59,24 @@ public class WhereIsCar extends Activity implements OnClickListener, LocationLis
 		
 		settings = getSharedPreferences(Constans.GPS_LOCATION_PREFERENCES, Activity.MODE_PRIVATE);
 		
+		locationManagerStatus =  (LocationManager) getSystemService(LOCATION_SERVICE);
+		if (!locationManagerStatus.isProviderEnabled(android.location.LocationManager.GPS_PROVIDER ))
+		{
+			Log.d(TAG, "GPS disabled");
+
+			Dialog dialog = createAlertDialogDisabledWiFi(this,
+					getString(R.string.no_enabled_gps_title),
+					getString(R.string.no_enabled_gps_message),
+					getString(R.string.yes_button_title),
+					getString(R.string.cancel_button_title));
+			dialog.show();
+		} else{
+			Log.d(TAG, "WiFi enabled");
+			refreshGPSstatus();
+		}
+		refreshGPSstatus();
+	
+		
 		locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
 		locationManager.requestLocationUpdates( LocationManager.GPS_PROVIDER, 10, 10, this);
 	    location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
@@ -69,13 +92,15 @@ public class WhereIsCar extends Activity implements OnClickListener, LocationLis
 	@Override
 	protected void onPause() {
 		locationManager.removeUpdates(this);
+		refreshGPSstatus();
 		super.onPause();
 	}
 	
 	@Override
 	protected void onResume() {
-		restoreData(settings);
+		//restoreData(settings);
 		locationManager.requestLocationUpdates( LocationManager.GPS_PROVIDER, 10, 10, this);
+		refreshGPSstatus();
 		super.onResume();
 	}
 
@@ -136,4 +161,40 @@ public class WhereIsCar extends Activity implements OnClickListener, LocationLis
 				}
 		}
 		
+		private Dialog createAlertDialogDisabledWiFi(Context ctx, String title,
+				String message, String buttonPositive, String buttonNegative) {
+
+			AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(ctx);
+			dialogBuilder.setTitle(title);
+			dialogBuilder.setMessage(message);
+			dialogBuilder.setCancelable(false);
+			dialogBuilder.setPositiveButton(buttonPositive,
+					new Dialog.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int whichButton) {
+						    Intent myIntent = new Intent( Settings.ACTION_SECURITY_SETTINGS );
+						    startActivity(myIntent); 
+							refreshGPSstatus();
+						}
+					});
+			dialogBuilder.setNegativeButton(buttonNegative,
+					new Dialog.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int whichButton) {
+							finish();
+						}
+					});
+
+			return dialogBuilder.create();
+		}
+
+		private void refreshGPSstatus() {
+			// show WiFi status
+			if(locationManagerStatus.isProviderEnabled(android.location.LocationManager.GPS_PROVIDER ))
+			{
+				Toast.makeText( getApplicationContext(),"GPS Enable!" ,	Toast.LENGTH_SHORT ).show();
+			}
+			
+		}
+
 	}
