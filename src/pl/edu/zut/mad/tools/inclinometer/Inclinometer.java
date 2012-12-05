@@ -1,12 +1,15 @@
 package pl.edu.zut.mad.tools.inclinometer;
 
 import pl.edu.zut.mad.tools.R;
+import android.app.Activity;
+import android.content.Context;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
-import android.app.Activity;
+import android.os.PowerManager;
+import android.os.PowerManager.WakeLock;
 import android.view.Menu;
 import android.view.Window;
 import android.view.WindowManager;
@@ -24,16 +27,20 @@ public class Inclinometer extends Activity implements SensorEventListener {
     /** Object responsible for access to accelerometer */
     private SensorManager sensor_manager;
 
-    private float[] inR = new float[16];
-    private float[] I = new float[16];
+    private final float[] inR = new float[16];
+    private final float[] I = new float[16];
     private float[] gravity = new float[3];
     private float[] geomag = new float[3];
-    private float[] orientVals = new float[3];
+    private final float[] orientVals = new float[3];
 
     private double azimuth = 0.0; // angle around the z-axis
     private double pitch = 0.0; // angle around the x-axis
     private double roll = 0.0; // angle around the y-axis
 
+    //Wy³¹czenie przechodzenia telefonu w stan uœpienia
+	//WakeLock
+    private WakeLock mWakeLock = null;
+    
     @Override
     public void onCreate(Bundle savedInstanceState) {
 
@@ -46,12 +53,20 @@ public class Inclinometer extends Activity implements SensorEventListener {
 		R.color.MadColor));
 	sensor_manager = (SensorManager) getSystemService(SENSOR_SERVICE);
 	setContentView(drawInclinometer);
+	
+	//WakeLock
+    PowerManager pm = (PowerManager)getSystemService(Context.POWER_SERVICE);
+    mWakeLock = pm.newWakeLock(PowerManager.FULL_WAKE_LOCK, "inclinometer");		
+
     }
 
     @Override
     protected void onPause() {
 	super.onPause();
 	sensor_manager.unregisterListener(this);
+	
+	//WakeLock
+	mWakeLock.release();
     }
 
     @Override
@@ -66,6 +81,9 @@ public class Inclinometer extends Activity implements SensorEventListener {
 	sensor_manager.registerListener(this,
 		sensor_manager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD),
 		SensorManager.SENSOR_DELAY_NORMAL);
+	
+	//WakeLock
+	mWakeLock.acquire();
     }
 
     @Override

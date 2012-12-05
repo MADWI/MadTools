@@ -8,8 +8,11 @@ import pl.edu.zut.mad.tools.R;
 import pl.edu.zut.mad.tools.utils.GraphPoint;
 import pl.edu.zut.mad.tools.utils.LinearGraph;
 import android.app.Activity;
+import android.content.Context;
 import android.media.MediaRecorder;
 import android.os.Bundle;
+import android.os.PowerManager;
+import android.os.PowerManager.WakeLock;
 import android.util.Log;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -28,17 +31,21 @@ public class NoiseMeterActivity extends Activity implements
 	private static GraphicalView view;
 	private LinearGraph lineGraph;
 
-	private double mOffsetdB = 10; // Offset for bar, i.e. 0 lit LEDs at 10 dB.
+	private final double mOffsetdB = 10; // Offset for bar, i.e. 0 lit LEDs at 10 dB.
 	// The Google ASR input requirements state that audio input sensitivity
 	// should be set such that 90 dB SPL at 1000 Hz yields RMS of 2500 for
 	// 16-bit samples, i.e. 20 * log_10(2500 / mGain) = 90.
-	private double mGain = 2500.0 / Math.pow(10.0, 90.0 / 20.0);
+	private final double mGain = 2500.0 / Math.pow(10.0, 90.0 / 20.0);
 	private double mRmsSmoothed; // Temporally filtered version of RMS.
-	private double mAlpha = 0.9; // Coefficient of IIR smoothing filter for RMS.
+	private final double mAlpha = 0.9; // Coefficient of IIR smoothing filter for RMS.
 
 	// Variables to monitor UI update and check for slow updates.
 	private volatile boolean mDrawing;
 	private volatile int mDrawingCollided;
+
+    //Wy³¹czenie przechodzenia telefonu w stan uœpienia
+	//WakeLock
+    private WakeLock mWakeLock = null;	
 
 	/** Called when the activity is first created. */
 	@Override
@@ -57,6 +64,10 @@ public class NoiseMeterActivity extends Activity implements
 		noiseLevel = (TextView) findViewById(R.id.noiseLevel);
 		mBarLevel = (BarLevelDrawable) findViewById(R.id.bar_level_drawable_view);
 
+		//WakeLock
+	    PowerManager pm = (PowerManager)getSystemService(Context.POWER_SERVICE);
+	    mWakeLock = pm.newWakeLock(PowerManager.FULL_WAKE_LOCK, "noiseMeterActivity");		
+
 	}
 
 	@Override
@@ -72,6 +83,9 @@ public class NoiseMeterActivity extends Activity implements
 	protected void onPause() {
 		micInput.stop();
 		super.onPause();
+		
+		//WakeLock
+		mWakeLock.release();		
 	}
 
 	@Override
@@ -81,6 +95,9 @@ public class NoiseMeterActivity extends Activity implements
 		micInput.setAudioSource(MediaRecorder.AudioSource.VOICE_RECOGNITION);
 		micInput.start();
 		super.onResume();
+
+		//WakeLock
+		mWakeLock.acquire();		
 	}
 
 	/**

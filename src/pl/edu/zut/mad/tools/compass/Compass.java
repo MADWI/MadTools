@@ -1,13 +1,15 @@
 package pl.edu.zut.mad.tools.compass;
 
 import pl.edu.zut.mad.tools.R;
-import android.os.Bundle;
 import android.app.Activity;
 import android.content.Context;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.os.Bundle;
+import android.os.PowerManager;
+import android.os.PowerManager.WakeLock;
 import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
@@ -18,6 +20,10 @@ public class Compass extends Activity {
 	private static SensorManager sensorService;
 	private MyCompassView compassView;
 	private Sensor sensor;
+	
+    //Wy³¹czenie przechodzenia telefonu w stan uœpienia
+	//WakeLock
+    private WakeLock mWakeLock = null;	
 
 	/** Called when the activity is first created. */
 
@@ -45,9 +51,26 @@ public class Compass extends Activity {
 					Toast.LENGTH_LONG).show();
 			finish();
 		}
+		//WakeLock
+	    PowerManager pm = (PowerManager)getSystemService(Context.POWER_SERVICE);
+	    mWakeLock = pm.newWakeLock(PowerManager.FULL_WAKE_LOCK, "compass");		
 	}
+    //WakeLock
+    @Override
+	public void onPause ()
+    {
+    	super.onPause();
+    	mWakeLock.release();
+    }
+    //WakeLock    
+    @Override
+	public void onResume ()
+    {
+    	super.onResume();
+    	mWakeLock.acquire();
+    }    
 
-	private SensorEventListener mySensorEventListener = new SensorEventListener() {
+	private final SensorEventListener mySensorEventListener = new SensorEventListener() {
 
 		@Override
 		public void onAccuracyChanged(Sensor sensor, int accuracy) {

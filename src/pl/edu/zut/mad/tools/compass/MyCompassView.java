@@ -36,7 +36,7 @@ public class MyCompassView extends View {
 	}
 
 	@Override
-	protected void onDraw(Canvas canvas) {
+	protected void onDraw(Canvas canvas) { 
 		int xPoint = getMeasuredWidth() / 2;
 		int yPoint = getMeasuredHeight() / 2;
 		

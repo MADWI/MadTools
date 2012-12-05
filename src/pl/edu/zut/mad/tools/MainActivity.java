@@ -6,10 +6,12 @@ import pl.edu.zut.mad.tools.lightmeter.LightMeter;
 import pl.edu.zut.mad.tools.nanny.Nanny;
 import pl.edu.zut.mad.tools.noise.meter.NoiseMeterActivity;
 import pl.edu.zut.mad.tools.whereIsCar.WhereIsCar;
-
-import android.os.Bundle;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
+import android.os.PowerManager;
+import android.os.PowerManager.WakeLock;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -24,6 +26,10 @@ public class MainActivity extends Activity implements OnClickListener {
     Button btnWhereIsCar;
     Button btnCompass;
     Button btnLightMeter;
+    
+    //Wy³¹czenie przechodzenia telefonu w stan uœpienia
+	//WakeLock
+    private WakeLock mWakeLock = null;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -43,8 +49,26 @@ public class MainActivity extends Activity implements OnClickListener {
 	btnWhereIsCar.setOnClickListener(this);
 	btnCompass.setOnClickListener(this);
 	btnLightMeter.setOnClickListener(this);
-    }
+	
+	//WakeLock
+    PowerManager pm = (PowerManager)getSystemService(Context.POWER_SERVICE);
+    mWakeLock = pm.newWakeLock(PowerManager.FULL_WAKE_LOCK, "mainActivity");
 
+    }
+    //WakeLock
+    @Override
+	public void onPause ()
+    {
+    	super.onPause();
+    	mWakeLock.release();
+    }
+    //WakeLock    
+    @Override
+	public void onResume ()
+    {
+    	super.onResume();
+    	mWakeLock.acquire();
+    }    
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 	getMenuInflater().inflate(R.menu.activity_main, menu);

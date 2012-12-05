@@ -6,11 +6,14 @@ import pl.edu.zut.mad.tools.R;
 import pl.edu.zut.mad.tools.utils.GraphPoint;
 import pl.edu.zut.mad.tools.utils.LinearGraph;
 import android.app.Activity;
+import android.content.Context;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.os.PowerManager;
+import android.os.PowerManager.WakeLock;
 import android.view.Menu;
 import android.view.Window;
 import android.view.WindowManager;
@@ -28,7 +31,10 @@ public class LightMeter extends Activity implements SensorEventListener {
 	private static GraphicalView view;
 	private LinearGraph lineGraph;
 	private int count = 0;
-	
+
+    //Wy³¹czenie przechodzenia telefonu w stan uœpienia
+	//WakeLock
+    private WakeLock mWakeLock = null;		
 	
 
 	@Override
@@ -47,6 +53,10 @@ public class LightMeter extends Activity implements SensorEventListener {
 
 		sensor_manager = (SensorManager) getSystemService(SENSOR_SERVICE);
 		lightSensor = sensor_manager.getDefaultSensor(Sensor.TYPE_LIGHT);
+
+		//WakeLock
+	    PowerManager pm = (PowerManager)getSystemService(Context.POWER_SERVICE);
+	    mWakeLock = pm.newWakeLock(PowerManager.FULL_WAKE_LOCK, "lightMeter");		
 		
 	}
 
@@ -63,6 +73,8 @@ public class LightMeter extends Activity implements SensorEventListener {
 	protected void onPause() {
 		super.onPause();
 		sensor_manager.unregisterListener(this);
+		//WakeLock
+		mWakeLock.release();
 	}
 
 	@Override
@@ -70,6 +82,9 @@ public class LightMeter extends Activity implements SensorEventListener {
 		super.onResume();
 		sensor_manager.registerListener(this, lightSensor,
 				SensorManager.SENSOR_DELAY_NORMAL);
+		
+		//WakeLock
+		mWakeLock.acquire();
 	}
 
 	@Override

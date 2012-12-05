@@ -8,8 +8,6 @@
     <string name="yes_button_title">Yes</string>
     <string name="no_enabled_wifi_title">WiFi disabled</string>
     <string name="no_enabled_wifi_message">Your WiFi device is turn off.\nWould you like to enable it ?</string>
-    <string name="no_enabled_gps_title">WiFi disabled</string>
-    <string name="no_enabled_gps_message">Your GPS device is turn off.\nWould you like to enable it ?</string>
     <string name="empty"></string>
     <string name="test_title_nanny">Nanny</string>
     <string name="refresh_button">Refresh</string>
