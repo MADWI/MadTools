@@ -10,7 +10,6 @@ import android.app.Activity;
 import android.view.Menu;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.TextView;
 
 /**
  * Simple class for inclinometer
@@ -20,12 +19,7 @@ import android.widget.TextView;
  * */
 public class Inclinometer extends Activity implements SensorEventListener {
 
-    /** Variable which contain phone x position */
-    private TextView xPostv;
-    /** Variable which contain phone y position */
-    private TextView yPostv;
-    /** Variables which contain phone z position */
-    private TextView zPostv;
+    private DrawInclinometer drawInclinometer;
 
     /** Object responsible for access to accelerometer */
     private SensorManager sensor_manager;
@@ -36,9 +30,9 @@ public class Inclinometer extends Activity implements SensorEventListener {
     private float[] geomag = new float[3];
     private float[] orientVals = new float[3];
 
-    private double azimuth = 0.0; //angle around the z-axis
-    private double pitch = 0.0;  //angle around the x-axis
-    private double roll = 0.0;  //angle around the y-axis
+    private double azimuth = 0.0; // angle around the z-axis
+    private double pitch = 0.0; // angle around the x-axis
+    private double roll = 0.0; // angle around the y-axis
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -47,13 +41,11 @@ public class Inclinometer extends Activity implements SensorEventListener {
 	getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
 		WindowManager.LayoutParams.FLAG_FULLSCREEN);
 	super.onCreate(savedInstanceState);
-	setContentView(R.layout.activity_inclinometer);
-
-	xPostv = (TextView) findViewById(R.id.xPostv);
-	yPostv = (TextView) findViewById(R.id.yPostv);
-	zPostv = (TextView) findViewById(R.id.zPostv);
-
+	drawInclinometer = new DrawInclinometer(this);
+	drawInclinometer.setBackgroundColor(getResources().getColor(
+		R.color.MadColor));
 	sensor_manager = (SensorManager) getSystemService(SENSOR_SERVICE);
+	setContentView(drawInclinometer);
     }
 
     @Override
@@ -117,15 +109,12 @@ public class Inclinometer extends Activity implements SensorEventListener {
 
 	    }
 	}
-	
+
 	azimuth = (azimuth + 360.0) % 360.0;
 	pitch = (pitch + 360.0) % 360.0;
 	roll = (roll + 360.0) % 360.0;
-	
-	xPostv.setText(String.format("%.0f", azimuth));
-	yPostv.setText(String.format("%.0f", 360 - pitch));
-	zPostv.setText(String.format("%.0f", 360 - roll));
-	//http://stackoverflow.com/questions/3501126/how-to-draw-a-filled-triangle-in-android-canvas
+
+	drawInclinometer.updateData(pitch);
 
     }
 }
