@@ -128,10 +128,6 @@ public class Inclinometer extends Activity implements SensorEventListener {
 	    }
 	}
 
-	azimuth = (azimuth + 360.0) % 360.0;
-	pitch = (pitch + 360.0) % 360.0;
-	roll = (roll + 360.0) % 360.0;
-
 	drawInclinometer.updateData(pitch);
 
     }

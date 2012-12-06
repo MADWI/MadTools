@@ -12,21 +12,28 @@ import android.view.View;
 public class DrawInclinometer extends View {
 
     private Paint paint = new Paint();
+    private Paint textPaint = new Paint();
     private double angle = 0.0;
     private final Bitmap imageInclinometer;
 
     public DrawInclinometer(Context context) {
 	super(context);
 	init();
-	imageInclinometer = BitmapFactory.decodeResource(getResources(), R.drawable.inclinometer);
+	initTextPaint();
+	imageInclinometer = BitmapFactory.decodeResource(getResources(), R.drawable.protractor);
+    }
+
+    private void initTextPaint() {
+	textPaint.setAntiAlias(true);
+	textPaint.setTextSize(70);
+	textPaint.setStyle(Paint.Style.STROKE);
+	textPaint.setColor(Color.WHITE);
     }
 
     private void init() {
-	paint = new Paint();
 	paint.setAntiAlias(true);
 	paint.setStrokeWidth(7);
-	paint.setTextSize(40);
-	paint.setStyle(Paint.Style.FILL_AND_STROKE);
+	paint.setStyle(Paint.Style.STROKE);
 	paint.setColor(Color.CYAN);
     }
 
@@ -37,47 +44,23 @@ public class DrawInclinometer extends View {
 
 	double radius = (Math.max(xPoint, yPoint) * 0.8);
 	
-	canvas.drawBitmap(imageInclinometer, 100, 89, null);
+	canvas.drawBitmap(imageInclinometer, 89, 89, null);
 	
-	canvas.drawLine(0, getHeight() - 55, getWidth(), getHeight() - 55,
-		paint);
+	/*canvas.drawLine(0, getHeight() - 72, getWidth(), getHeight() - 72,
+		paint);*/
 
 	canvas.drawLine(
-		xPoint,
-		yPoint,
+		xPoint-10,
+		yPoint-20,
 		(float) (xPoint + radius
-			* Math.sin((double) (angle) / 180 * 3.143)),
+			* Math.sin((double) (angle) / 180 * 3.14159)),
 		(float) (yPoint - radius
-			* Math.cos((double) (angle) / 180 * 3.143)), paint);
+			* Math.cos((double) (angle) / 180 * 3.14159)), paint);
 
-	/*do sprawdzenia - jest 3:30 nie mam ju¿ si³y*/
-	/*if (angle <= 0.1 || angle >= 359.9) {
-	    angle = 90;
-	    canvas.drawText(String.format("%.0f", angle), getWidth() / 3,
-			getHeight() / 4, paint);
-	} 
-	if (angle <= 270.1) {
-	    angle = 0;
-	    canvas.drawText(String.format("%.0f", angle), getWidth() / 3,
-			getHeight() / 4, paint);
-	}
-	if(angle >= 89.9){
-	    angle = 180;
-	    canvas.drawText(String.format("%.0f", angle), getWidth() / 3,
-			getHeight() / 4, paint);
-	}
-	if(angle >= 270.1 && angle <= 359.9){
-	    canvas.drawText(String.format("%.0f", 360 - angle), getWidth() / 3,
-			getHeight() / 4, paint);
-	}
-	if(angle>=0.1 & angle <= 89.9){
-	    canvas.drawText(String.format("%.0f", 90+angle), getWidth() / 3,
-			getHeight() / 4, paint);
-	}*/
-	canvas.drawText(String.format("%.0f", angle), 100,
-		100, paint);
+	canvas.drawText(String.format("%.0f", Math.abs(angle)), 50,
+		100, textPaint);
 	canvas.drawText("o", 180,
-		70, paint);
+		70, textPaint);
 	
 
     }
