@@ -1,46 +1,101 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent" >
+    android:layout_height="fill_parent"
+    android:background="@color/MadColor" >
 
-    <Button
-        android:id="@+id/podany_gram"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="gram" />
+    <!-- <requestFocus />-->
 
-    <Button
-        android:id="@+id/podany_kilogram"
-        android:layout_width="wrap_content"
+    <RadioGroup
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/radioGroup2"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginRight="38dp"
-        android:layout_marginTop="18dp"
-        android:text="kilogram" />
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="64dp"
+        android:orientation="vertical" >
+
+        <RadioButton
+            android:id="@+id/KM_kW"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/minute_sekunde"
+            android:layout_below="@+id/minute_sekunde"
+            android:text="KM-kW"
+            android:textColor="#FFFF00" />
+
+        <RadioButton
+            android:id="@+id/sekunde_minute"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/KM_kW"
+            android:text="sekundy-minuty"
+            android:textColor="#FFFF00" />
+
+        <RadioButton
+            android:id="@+id/kW_KM"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/minute_sekunde"
+            android:layout_alignBottom="@+id/minute_sekunde"
+            android:layout_alignParentRight="true"
+            android:text="kW-KM"
+            android:textColor="#FFFF00" />
+
+        <RadioButton
+            android:id="@+id/minute_sekunde"
+            android:layout_width="wrap_content"
+            android:layout_height="73dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="16dp"
+            android:layout_weight="0.09"
+            android:text="minuty-sekundy"
+            android:textColor="#FFFF00" />
+
+        <RadioButton
+            android:id="@+id/gram_kilog"
+            android:layout_width="170dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/minute_sekunde"
+            android:text="gram-kilogram"
+            android:textColor="#FFFF00" />
+
+        <RadioButton
+            android:id="@+id/kilog_gram"
+            android:layout_width="wrap_content"
+            android:layout_height="62dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@+id/sekunde_minute"
+            android:text="kilogram-gram"
+            android:textColor="#FFFF00" />
+    </RadioGroup>
 
     <EditText
         android:id="@+id/liczba"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="135dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_weight="1"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:text="wprowadz_liczbe" >
+        android:hint="wprowadz_liczbe"
+        android:inputType="textPersonName" />
 
-        <requestFocus />
-    </EditText>
-
-    <EditText
+    <TextView
         android:id="@+id/wynik"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/wynik"
-        android:layout_marginBottom="68dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="podany_wynik" />
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="28dp"
+        android:layout_marginRight="66dp"
+        android:text="0"
+        android:textColor="#FF0000"
+        android:textSize="25sp" />
 
 </RelativeLayout>

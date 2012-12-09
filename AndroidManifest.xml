@@ -88,6 +88,14 @@
             
             android:theme="@android:style/Theme.Black.NoTitleBar">
         </activity>
+        
+        <activity 
+            android:name=".converter.Converter"
+            android:label="@layout/activity_converter" 
+            android:screenOrientation="portrait" 
+            
+            android:theme="@android:style/Theme.Black.NoTitleBar">
+        </activity>
     </application>
 
 </manifest>

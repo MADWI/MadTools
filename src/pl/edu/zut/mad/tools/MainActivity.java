@@ -1,6 +1,7 @@
 package pl.edu.zut.mad.tools;
 
 import pl.edu.zut.mad.tools.compass.Compass;
+import pl.edu.zut.mad.tools.converter.Converter;
 import pl.edu.zut.mad.tools.inclinometer.Inclinometer;
 import pl.edu.zut.mad.tools.lightmeter.LightMeter;
 import pl.edu.zut.mad.tools.nanny.Nanny;
@@ -27,6 +28,9 @@ public class MainActivity extends Activity implements OnClickListener {
     Button btnCompass;
     Button btnLightMeter;
     
+    Button btnConverter;
+    
+    
     //Wy³¹czenie przechodzenia telefonu w stan uœpienia
 	//WakeLock
     private WakeLock mWakeLock = null;
@@ -42,6 +46,9 @@ public class MainActivity extends Activity implements OnClickListener {
 	btnWhereIsCar = (Button) findViewById(R.id.btnWhereIsCar);
 	btnCompass = (Button) findViewById(R.id.btnCompass);
 	btnLightMeter = (Button)findViewById(R.id.btnLightMeter);
+	
+	btnConverter = (Button) findViewById(R.id.btnConverter);
+	
 
 	btnInclinometer.setOnClickListener(this);
 	btnNanny.setOnClickListener(this);
@@ -49,6 +56,9 @@ public class MainActivity extends Activity implements OnClickListener {
 	btnWhereIsCar.setOnClickListener(this);
 	btnCompass.setOnClickListener(this);
 	btnLightMeter.setOnClickListener(this);
+	
+	
+	btnConverter.setOnClickListener(this);
 	
 	//WakeLock
     PowerManager pm = (PowerManager)getSystemService(Context.POWER_SERVICE);
@@ -107,7 +117,12 @@ public class MainActivity extends Activity implements OnClickListener {
 	    Intent lightMeterIntent = new Intent(this, LightMeter.class);
 	    startActivity(lightMeterIntent);
 	    break;
-
+	    
+	case R.id.btnConverter:
+		Intent converterIntent = new Intent(this, Converter.class);
+		startActivity(converterIntent);
+	    break;
+	    
 	}
 
     }
