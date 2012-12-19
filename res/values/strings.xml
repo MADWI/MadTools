@@ -1,5 +1,4 @@
 <resources>
-
     <string name="app_name">Mad Tools</string>
     <string name="menu_settings">Settings</string>
     <string name="title_activity_nanny">Elektroniczna niania</string>
@@ -16,12 +15,10 @@
     <string name="wifi_title">WiFi</string>
     <string name="test_title_inclinometer">Kątomierz</string>
     <string name="title_activity_inclinometer">Kątomierz</string>
-
     <string name="title_activity_noise_meter">NoiseMeterActivity</string>
     <string name="zero_decibel">00 dB</string>
     <string name="test_title_noise">Pomiar hałasu</string>
     <string name="noise_bar_title">Poziomy hałasu</string>
-
     <string name="title_activity_whereiscar">Gdzie jest samochód ?</string>
     <string name="btnSaveLocation">Zapisz pozycję</string>
     <string name="btnTakeMe">Prowadź!</string>
@@ -33,6 +30,14 @@
     <string name="title_activity_chat_server">Serwer czatu tekstowego</string>
     <string name="title_activity_light_meter">Czujnik oświetlenia</string>
     <string name="light_graph_title">Poziomy oświetlenia</string>
-
-
+    <string name="pomiar_pow">Pomiar Powierzchni</string>
+    <string name="pomiar_odl">Pomiar odległości</string>
+    <string name="opcje">Konfiguracja</string>
+    <string name="end">Wyjście</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_config">ConfigActivity</string>
+    <string name="title_activity_pom_dl">Pomiary GPS</string>
+    <string name="info">Informacje</string>
+    <string name="title_activity_converter">Konwerter</string>
+    <string name="title_pom_gps">Pomiary GPS</string>
 </resources>

@@ -1,0 +1,127 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/world_black"
+    android:orientation="vertical" >
+            
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="fill_parent"
+        android:layout_height="80dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:orientation="horizontal"
+        android:weightSum="3" >
+
+        <ImageButton
+            android:id="@+id/buttonMinus"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:background="@null"
+            android:scaleType="fitCenter"
+            android:src="@drawable/minus"
+            android:textColorHint="@android:color/transparent" />
+
+        <ImageButton
+            android:id="@+id/buttonSave"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:background="@null"
+            android:scaleType="fitCenter"
+            android:src="@drawable/save" />
+
+        <ImageButton
+            android:id="@+id/buttonPlus"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:background="@null"
+            android:drawableLeft="@drawable/grid"
+            android:scaleType="fitCenter"
+            android:src="@drawable/plus" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Liczba punktów:"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#888" />
+
+        <TextView
+            android:id="@+id/textPunkty"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@android:color/white" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Długość:"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#888" />
+
+        <TextView
+            android:id="@+id/textDystans"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="0 m"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@android:color/white" />
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Pole powierzchni"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#888" />
+
+        <TextView
+            android:id="@+id/textPole"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="0 m^2"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@android:color/white" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/LinearLayout01"
+        android:layout_width="fill_parent"
+        android:layout_height="80dp"
+        android:layout_alignParentLeft="false"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        
+        android:orientation="horizontal"
+         >
+
+        <ImageButton
+            android:id="@+id/buttonClose"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_gravity="right"
+            android:layout_weight="0.21"
+            android:background="@null"
+            android:scaleType="fitEnd"
+            android:src="@drawable/off" />
+
+    </LinearLayout>
+
+</RelativeLayout>
