@@ -35,14 +35,14 @@ public class PomDlActivity extends Activity implements OnClickListener {
 	private TextView textD;
 	private Vector<Location> punkty;
 	private float dlugosc = 0;
-
+	LocationListener mlocListener;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_pom_dl);
 		punkty = new Vector<Location>();
 		locMgr = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-		LocationListener mlocListener = new MyLocationListener();
+		mlocListener = new MyLocationListener();
 		locMgr.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0,
 				mlocListener);
 		textLP = (TextView) findViewById(R.id.textPunkty);
@@ -53,6 +53,12 @@ public class PomDlActivity extends Activity implements OnClickListener {
 		findViewById(R.id.buttonSave).setOnClickListener(this);
 		findViewById(R.id.buttonClose).setOnClickListener(this);
 	}
+	
+	@Override
+	    protected void onPause() {
+		super.onPause();
+		locMgr.removeUpdates(mlocListener);
+	    }
 
 	public class MyLocationListener implements LocationListener
 

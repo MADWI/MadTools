@@ -18,7 +18,6 @@ public class PomMain extends Activity implements OnClickListener {
 		findViewById(R.id.button1).setOnClickListener(this);
 		findViewById(R.id.button2).setOnClickListener(this);
 		findViewById(R.id.button3).setOnClickListener(this);
-		findViewById(R.id.button4).setOnClickListener(this);
 	}
 
 	@Override
@@ -40,10 +39,7 @@ public class PomMain extends Activity implements OnClickListener {
 					android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
 
 			break;
-		case R.id.button4:
-			finish();
-
-			break;
+	
 
 		case R.id.button2:
 			AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);

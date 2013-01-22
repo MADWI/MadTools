@@ -1,35 +1,34 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@drawable/world_black"
+    android:background="@color/MadColor"
     android:orientation="vertical" >
 
     <Button
         android:id="@+id/button1"
+        style="@style/ButtonText"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/black_button"
         android:drawableLeft="@drawable/pin_map"
         android:text="@string/pomiar_odl" />
 
     <Button
         android:id="@+id/button2"
+        style="@style/ButtonText"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/black_button"
         android:drawableLeft="@drawable/info"
         android:text="@string/info" />
 
     <Button
         android:id="@+id/button3"
+        style="@style/ButtonText"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/black_button"
         android:drawableLeft="@drawable/wrench_plus_2"
         android:text="@string/opcje" />
-
-    <Button
-        android:id="@+id/button4"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:drawableLeft="@drawable/arrow_bottom_left"
-        android:text="@string/end" />
 
 </LinearLayout>

@@ -44,7 +44,7 @@ public class DrawInclinometer extends View {
 
 	double radius = (Math.max(xPoint, yPoint) * 0.8);
 	
-	canvas.drawBitmap(imageInclinometer, 89, 89, null);
+	canvas.drawBitmap(imageInclinometer, xPoint-imageInclinometer.getWidth()/2, yPoint-imageInclinometer.getHeight(), null);
 	
 	/*canvas.drawLine(0, getHeight() - 72, getWidth(), getHeight() - 72,
 		paint);*/
