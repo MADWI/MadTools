@@ -1,7 +1,5 @@
 <resources>
 
-    <style name="AppTheme" parent="android:Theme.Light" />
-
     <style name="ButtonText">
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">wrap_content</item>

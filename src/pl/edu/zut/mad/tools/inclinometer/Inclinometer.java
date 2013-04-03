@@ -1,9 +1,5 @@
 package pl.edu.zut.mad.tools.inclinometer;
 
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockActivity;
-import com.actionbarsherlock.app.ActionBar.Tab;
-
 import pl.edu.zut.mad.tools.MainActivity;
 import pl.edu.zut.mad.tools.R;
 import pl.edu.zut.mad.tools.compass.Compass;
@@ -12,7 +8,6 @@ import pl.edu.zut.mad.tools.lightmeter.LightMeter;
 import pl.edu.zut.mad.tools.noise.meter.NoiseMeterActivity;
 import pl.edu.zut.mad.tools.utils.TabCreator;
 import pl.edu.zut.mad.tools.whereIsCar.WhereIsCar;
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.hardware.Sensor;
@@ -24,8 +19,10 @@ import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
-import android.view.Window;
-import android.view.WindowManager;
+
+import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.ActionBar.Tab;
+import com.actionbarsherlock.app.SherlockActivity;
 
 /**
  * Simple class for inclinometer
