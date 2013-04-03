@@ -54,11 +54,7 @@ public class Nanny extends Activity implements OnClickListener {
 		refreshWifiStatus();
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.activity_nanny, menu);
-		return true;
-	}
+
 
 	@Override
 	public void onClick(View v) {

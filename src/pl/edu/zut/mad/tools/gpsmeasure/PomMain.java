@@ -1,13 +1,12 @@
 package pl.edu.zut.mad.tools.gpsmeasure;
 
 import pl.edu.zut.mad.tools.R;
-import android.os.Bundle;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.view.Menu;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.content.Intent;
 
 public class PomMain extends Activity implements OnClickListener {
 
@@ -20,11 +19,6 @@ public class PomMain extends Activity implements OnClickListener {
 		findViewById(R.id.button3).setOnClickListener(this);
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.activity_main_pom, menu);
-		return true;
-	}
 
 	public void onClick(View v) {
 		Intent intent;

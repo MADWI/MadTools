@@ -18,6 +18,10 @@ public class Checker {
 
 	static private List<Sensor> sensorsList = null;
 
+	private Checker()
+	{
+		
+	}
 	/**
 	 * Get list of all available sensors.
 	 * 

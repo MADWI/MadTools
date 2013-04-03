@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="navi_items">
+        <item>Start</item>
+        <item>Kompas</item>
+        <item>Pomiar głośności</item>
+        <item>Kątomierz</item>
+        <item>Czujnik oświetlenia</item>
+        <item>Konwerter</item>
+        <item>Gdzie jest samochód?</item>
+    </string-array>
+
+</resources>

@@ -4,21 +4,36 @@ import java.text.DecimalFormat;
 
 import org.achartengine.GraphicalView;
 
+import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.app.ActionBar.Tab;
+
+import pl.edu.zut.mad.tools.MainActivity;
 import pl.edu.zut.mad.tools.R;
+import pl.edu.zut.mad.tools.compass.Compass;
+import pl.edu.zut.mad.tools.converter.Converter;
+import pl.edu.zut.mad.tools.inclinometer.Inclinometer;
+import pl.edu.zut.mad.tools.lightmeter.LightMeter;
 import pl.edu.zut.mad.tools.utils.GraphPoint;
 import pl.edu.zut.mad.tools.utils.LinearGraph;
+import pl.edu.zut.mad.tools.utils.TabCreator;
+import pl.edu.zut.mad.tools.whereIsCar.WhereIsCar;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.media.MediaRecorder;
 import android.os.Bundle;
 import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-public class NoiseMeterActivity extends Activity implements
-		MicrophoneInputListener {
+public class NoiseMeterActivity extends SherlockActivity implements
+		ActionBar.TabListener, MicrophoneInputListener {
+	private String[] navi_items;
+	private boolean tabActive = false;
 
 	private static final String TAG = "NoiseMeterActivity";
 
@@ -31,28 +46,31 @@ public class NoiseMeterActivity extends Activity implements
 	private static GraphicalView view;
 	private LinearGraph lineGraph;
 
-	private final double mOffsetdB = 10; // Offset for bar, i.e. 0 lit LEDs at 10 dB.
+	private final double mOffsetdB = 10; // Offset for bar, i.e. 0 lit LEDs at
+											// 10 dB.
 	// The Google ASR input requirements state that audio input sensitivity
 	// should be set such that 90 dB SPL at 1000 Hz yields RMS of 2500 for
 	// 16-bit samples, i.e. 20 * log_10(2500 / mGain) = 90.
 	private final double mGain = 2500.0 / Math.pow(10.0, 90.0 / 20.0);
 	private double mRmsSmoothed; // Temporally filtered version of RMS.
-	private final double mAlpha = 0.9; // Coefficient of IIR smoothing filter for RMS.
+	private final double mAlpha = 0.9; // Coefficient of IIR smoothing filter
+										// for RMS.
 
 	// Variables to monitor UI update and check for slow updates.
 	private volatile boolean mDrawing;
 	private volatile int mDrawingCollided;
 
-    //Wy³¹czenie przechodzenia telefonu w stan uœpienia
-	//WakeLock
-    private WakeLock mWakeLock = null;	
+	// Wy³¹czenie przechodzenia telefonu w stan uœpienia
+	// WakeLock
+	private WakeLock mWakeLock = null;
 
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
+		setTheme(R.style.Theme_Sherlock);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_noise_meter);
-
+		navi_items = getResources().getStringArray(R.array.navi_items);
 		// Here the micInput object is created for audio capture.
 		// It is set up to call this object to handle real time audio frames of
 		// PCM samples. The incoming frames will be handled by the
@@ -64,9 +82,19 @@ public class NoiseMeterActivity extends Activity implements
 		noiseLevel = (TextView) findViewById(R.id.noiseLevel);
 		mBarLevel = (BarLevelDrawable) findViewById(R.id.bar_level_drawable_view);
 
-		//WakeLock
-	    PowerManager pm = (PowerManager)getSystemService(Context.POWER_SERVICE);
-	    mWakeLock = pm.newWakeLock(PowerManager.FULL_WAKE_LOCK, "noiseMeterActivity");		
+		getSupportActionBar().setDisplayShowTitleEnabled(true);
+		getSupportActionBar().setTitle("Mad Tools");
+		getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+
+		TabCreator tc = new TabCreator(this);
+		tc.createTab(2);
+
+		tabActive = true;
+
+		// WakeLock
+		PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
+		mWakeLock = pm.newWakeLock(PowerManager.FULL_WAKE_LOCK,
+				"noiseMeterActivity");
 
 	}
 
@@ -83,9 +111,9 @@ public class NoiseMeterActivity extends Activity implements
 	protected void onPause() {
 		micInput.stop();
 		super.onPause();
-		
-		//WakeLock
-		mWakeLock.release();		
+
+		// WakeLock
+		mWakeLock.release();
 	}
 
 	@Override
@@ -96,8 +124,8 @@ public class NoiseMeterActivity extends Activity implements
 		micInput.start();
 		super.onResume();
 
-		//WakeLock
-		mWakeLock.acquire();		
+		// WakeLock
+		mWakeLock.acquire();
 	}
 
 	/**
@@ -138,8 +166,7 @@ public class NoiseMeterActivity extends Activity implements
 					GraphPoint p = new GraphPoint(count, 20 + rmsdB);
 					lineGraph.addNewPoints(p);
 
-					if (p.getX() > 60)
-					{
+					if (p.getX() > 60) {
 						lineGraph.setXAxisMin(p.getX() - 60);
 						lineGraph.setXAxisMax(p.getX());
 					}
@@ -156,5 +183,52 @@ public class NoiseMeterActivity extends Activity implements
 							+ "than 20ms. Collision count"
 							+ Double.toString(mDrawingCollided));
 		}
+	}
+
+	@Override
+	public void onTabSelected(Tab tab, FragmentTransaction ft) {
+		Log.e("TABNoise", tab.getText().toString());
+		if (tabActive) {
+			if (tab.getText().toString().equals(navi_items[0])) {
+				Intent main = new Intent(this, MainActivity.class);
+				startActivity(main);
+				finish();
+			} else if (tab.getText().toString().equals(navi_items[1])) {
+				Intent compssIntent = new Intent(this, Compass.class);
+				startActivity(compssIntent);
+				finish();
+			} else if (tab.getText().toString().equals(navi_items[2])) {
+
+			} else if (tab.getText().toString().equals(navi_items[3])) {
+				Intent inclinometerIntent = new Intent(this, Inclinometer.class);
+				startActivity(inclinometerIntent);
+				finish();
+			} else if (tab.getText().toString().equals(navi_items[4])) {
+				Intent lightMeterIntent = new Intent(this, LightMeter.class);
+				startActivity(lightMeterIntent);
+				finish();
+			} else if (tab.getText().toString().equals(navi_items[5])) {
+				Intent converterIntent = new Intent(this, Converter.class);
+				startActivity(converterIntent);
+				finish();
+			} else if (tab.getText().toString().equals(navi_items[6])) {
+				Intent whereIsCarIntent = new Intent(this, WhereIsCar.class);
+				startActivity(whereIsCarIntent);
+				finish();
+			}
+		}
+
+	}
+
+	@Override
+	public void onTabUnselected(Tab tab, FragmentTransaction ft) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void onTabReselected(Tab tab, FragmentTransaction ft) {
+		// TODO Auto-generated method stub
+
 	}
 }
